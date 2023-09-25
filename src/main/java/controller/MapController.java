@@ -6,6 +6,6 @@ package controller;
  * @since 09/24/2023
  */
 
-public class Controller {
+public class MapController {
     
 }
