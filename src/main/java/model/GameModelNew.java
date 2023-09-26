@@ -1,6 +1,8 @@
 package model;
 
-public class GameModel {
+import java.util.ArrayList;
+
+public class GameModelNew {
     /**
      * Enumerator for all the game phases
      */
@@ -9,7 +11,16 @@ public class GameModel {
     }
 
     private Phases d_gamePhase;
-    private Map d_map;
+    private Map d_Map;
+    private ArrayList<Player> d_PlayerList;
+
+    /**
+     * Default constructor which initializes map and player List
+     */
+    public GameModelNew() {
+        this.d_Map = new Map();
+        this.d_PlayerList = new ArrayList<Player>();
+    }
 
     /**
      * This is a constructor of GameModel class which will initialize the Map and
@@ -17,7 +28,7 @@ public class GameModel {
      * 
      * @param intializing map parameter ,
      */
-    public GameModel(Map d_map) {
+    public GameModelNew(Map d_map) {
         super();
         this.d_map = d_map;
         this.setGamePhase(Phases.Startup);

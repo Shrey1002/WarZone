@@ -1,15 +1,42 @@
 package controller;
+
 import java.awt.event.ActionListener;
 
+import model.GameModelNew;
+import view.CommandPrompt;
+import java.util.ArrayList;
+
+import model.GameModelNew;
+import model.Player;
+import view.CommandPrompt;
+
 /**
- * This is the main controller class of MVC model. 
- * This class has a references of View, Models and various child controllers. 
+ * This is the main controller class of MVC model.
+ * This class has a references of View, Models and various child controllers.
  * This class acts as an intermediary between models/controllers and view.
  */
 public class GameEngine {
-	
+    private GameModelNew d_GameModelNew;
+    private CommandPrompt d_CpView;
+    private MapController d_MapController;
+    private ArrayList<Player> d_PlayerList;
+    private PlayerController d_PlayerController;
 
-	/**
+    /**
+     * This controller takes view and model as arguments and use throughout the
+     * game.
+     * 
+     * @param p_CpView    main view of the game.
+     * @param p_GameModel main model of the game.
+     */
+    public GameEngine(CommandPrompt p_CpView, GameModelNew p_GameModel) {
+        d_GameModelNew = p_GameModel;
+        d_CpView = p_CpView;
+        d_MapController = new MapController(this.d_GameModelNew.getMap());
+        d_CpView.commandSendButtonListener(new CommandListener());
+    }
+
+    /**
 	 * This is a child class of the GameEngine which listens to the actions performed by button in view. 
 	 * This class implements the ActionListener and override the actionPerformed method.
 	 * This class is responsible for passing data from view to models/child controllers.
