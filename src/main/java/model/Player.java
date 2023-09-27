@@ -7,6 +7,8 @@ public class Player {
     private int d_PlayerId;
 	private String d_PlayerColor = "";
 	private ArrayList<Country> d_Countries = new ArrayList<Country>();
+	private int d_Armies;
+	private int d_TempArmies;
 	
     /**
 	 * default constructor of Player class	
@@ -58,6 +60,44 @@ public class Player {
 	 */
 	public int getPlayerId() {
 		return this.d_PlayerId;
+	}
+
+	/**
+	 * get method for player color
+	 * @return returns player color
+	 */
+	public String getPlayerColor() {
+		return this.d_PlayerColor;
+	}
+
+	/**
+	 * set method for player id 
+	 * @param p_PlayerId player id of player
+	 */
+	public void setPlayerId(int p_PlayerId) {
+		this.d_PlayerId = p_PlayerId;
+	}
+	/**
+	 * set method for player color
+	 * @param p_PlayerColor Player Color of the player
+	 */
+	public void setPlayerColor(String p_PlayerColor) {
+		this.d_PlayerColor = p_PlayerColor;
+	}
+	/**
+	 * set method for allocating armies to player
+	 * @param p_Armies Armies off the player
+	 */
+	public void setPlayerArmies(int p_Armies) {
+		this.d_Armies = p_Armies;
+		this.d_TempArmies = p_Armies;
+	}
+	/**
+	 * get method for armies of player
+	 * @return returns armies of players
+	 */
+	public int getPlayerArmies() {
+		return this.d_Armies;
 	}
 
 }
