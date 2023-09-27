@@ -42,6 +42,8 @@ public class GameEngine {
 	 * This class is responsible for passing data from view to models/child controllers.
 	 */
 	public class CommandListener implements ActionListener{
+		private boolean d_MapDone = false;
+
 
 
 		/**
@@ -61,9 +63,18 @@ public class GameEngine {
 				String l_CommandStringFromInput = d_CpView.getCommandInput().trim();
 				switch(l_CommandStringFromInput.split(" ")[0]){
 				case "editcontinent" : 
-                    {
-                    }
-                    break; 
+				if(d_MapDone==false) {
+					try {
+						String l_AckMsg = d_MapController.editMap("editcontinent", l_CommandStringFromInput);
+						d_CpView.setCommandAcknowledgement(l_AckMsg + "\n");
+					}catch(Exception p_Exception) {
+						d_CpView.setCommandAcknowledgement(p_Exception.getMessage());
+						d_CpView.setCommandAcknowledgement("\n");
+					}
+				}else {
+					d_CpView.setCommandAcknowledgement("Cant Edit Map In This Phase"+"\n");
+				}
+				break;
 
 				case "editcountry" :
                     {
