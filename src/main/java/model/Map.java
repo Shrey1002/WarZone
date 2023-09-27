@@ -114,4 +114,71 @@ public class Map {
 		l_Result="The Map is loaded with "+this.d_ContinentObjects.size()+" Continents and "+this.d_CountryObjects.size()+" Countries";
 		return l_Result;
 	}
+
+		/**
+	 * It saves the user edited map. It checks for the validation of the map object and then only it saves into the file.
+	 * @param p_FileName File name to save the map
+	 * @return If Map is saved successfully or not
+	 * @throws Exception No continent to save
+	 */
+	public String saveMap(String p_FileName) throws Exception{
+		String l_Result=validateMap();
+		if(l_Result.equals("Map is not Valid")){
+			return l_Result;
+		}
+		String l_Path="resource\\";
+		ArrayList<String> l_Borders= new ArrayList<>();
+		File l_File=new File(l_Path+p_FileName);
+		FileWriter l_Fw = new FileWriter(l_File);
+		PrintWriter l_Pr = new PrintWriter(l_Fw);
+		l_Pr.println("");
+		l_Pr.println("continents");
+		if(this.d_ContinentObjects.size()<=0) {
+			l_Pr.close();
+			throw new Exception("No Continent to Save");
+		}
+		//adding all the continents in the file
+		for(Continent l_Co: this.d_ContinentObjects){
+			l_Pr.println(l_Co.getContinentName()+" "+l_Co.getContinentControlValue());
+		}
+		l_Pr.println("");
+		l_Pr.println("countries");
+		int l_CountryOrder=0;
+		//adding all countries in the file
+		for(Country l_C: this.d_CountryObjects){
+			l_CountryOrder++;
+			String l_ContinentName = l_C.getContinentName();
+			int l_ContinentId=0;
+			int l_ContinentOrder=0;
+			for(Continent l_Ct:this.d_ContinentObjects) {
+				l_ContinentOrder+=1;
+				if(l_Ct.getContinentName().equals(l_ContinentName)) {
+					l_ContinentId = l_ContinentOrder;
+				}
+			}
+			this.d_PreviousSave.put(l_C.d_ID,l_CountryOrder);
+			l_Pr.println(l_CountryOrder+" "+l_C.d_Name+" "+l_ContinentId);
+		}
+		l_Pr.println("");
+		l_Pr.println("borders");
+		//adding all the borders in the file.
+		for(Country l_C: d_CountryObjects){
+			int l_New=this.d_PreviousSave.get(l_C.d_ID);
+			l_Borders=l_C.getBorder();
+			l_Pr.print(l_New+" ");
+			for(String l_Str: l_Borders){
+				for(Country l_Country: this.d_CountryObjects){
+					if(l_Country.getCountryName().equals(l_Str)){
+						int l_NewNeighbor=this.d_PreviousSave.get(l_Country.d_ID);
+						l_Pr.print(l_NewNeighbor+" ");
+					}
+				}
+
+			}
+			l_Pr.println("");
+		}
+		l_Pr.close();
+		l_Fw.close();
+		return "The Map Has Been Saved Successfully";
+	}
 }
