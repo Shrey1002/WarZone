@@ -136,8 +136,7 @@ public class Map {
 		l_Result="The Map is loaded with "+this.d_ContinentObjects.size()+" Continents and "+this.d_CountryObjects.size()+" Countries";
 		return l_Result;
 	}
-
-		/**
+	/**
 	 * It saves the user edited map. It checks for the validation of the map object and then only it saves into the file.
 	 * @param p_FileName File name to save the map
 	 * @return If Map is saved successfully or not
@@ -202,5 +201,28 @@ public class Map {
 		l_Pr.close();
 		l_Fw.close();
 		return "The Map Has Been Saved Successfully";
+	}
+	/**
+	 * This method receives ContinentName and its Control value from the user through command and saves the continent in map. 
+	 * 
+	 * @param p_ContinentName Name of the continent to be added
+	 * @param p_ContinentControlValue Control value of the continent to be added
+	 * @throws Exception In case of continent already exists, it throws an exception
+	 */
+	public void addContinent(String p_ContinentName, String p_ContinentControlValue) throws Exception {
+
+		if(p_ContinentControlValue.equals("0")){
+			throw new Exception("Continent control value cannot be 0");
+		}
+		for(Continent l_Contient:this.d_ContinentObjects) {
+			if(l_Contient.getContinentName().equalsIgnoreCase(p_ContinentName)) {
+				throw new Exception("Continent Already Exists");
+			}
+		}
+		try{
+			this.d_ContinentObjects.add(new Continent(p_ContinentName, Integer.parseInt(p_ContinentControlValue)));
+		}catch(Exception l_E){
+			throw new Exception("Please enter a valid Integer for Continent Control Value");
+		}
 	}
 }
