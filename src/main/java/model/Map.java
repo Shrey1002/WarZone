@@ -31,6 +31,28 @@ public class Map {
 		d_PreviousSave=new HashMap<Integer,Integer>();
 	}
 
+	/**
+	 * This method returns the ArrayList of country objects
+	 * 
+	 * @return ArrayList of CountryObjects
+	 */
+	public ArrayList<Country> getCountryList(){
+		return this.d_CountryObjects;
+	}
+
+	/**
+	 * This method initializes the map from scratch by clearing all the containers inside it. 
+	 * This method clears Continent, Country and Neighbor containers. 
+	 * This method also set the static IDs of Country and Continents back to zero. 
+	 */
+	public void reset() {
+		this.d_ContinentObjects.clear();
+		this.d_CountryObjects.clear();
+		this.d_Neighbors.clear();
+		this.d_PreviousSave.clear();
+		Country.setCount(0);
+		Continent.setCount(0);
+	}
     	/**
 	 * This method loads a map file given by the user.
 	 * <ul>
