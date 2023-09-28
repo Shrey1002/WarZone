@@ -1,5 +1,7 @@
 package model;
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class Player {
     private String d_PlayerName="";
@@ -9,6 +11,9 @@ public class Player {
 	private ArrayList<Country> d_Countries = new ArrayList<Country>();
 	private int d_Armies;
 	private int d_TempArmies;
+	private ArrayList<Continent> d_Continents = new ArrayList<Continent>();
+	private String d_Result="";
+	
 	
     /**
 	 * default constructor of Player class	
@@ -98,6 +103,48 @@ public class Player {
 	 */
 	public int getPlayerArmies() {
 		return this.d_Armies;
+	}
+	/**
+	 * set Continent list for the player. It consists of only those continent objects whose all countries belong to this player.
+	 */
+	public void setContinentsList() {
+		ArrayList <Continent> l_MapContinents = d_GameModelNew.getSelectedMap().getContinentList();
+		for(Continent l_MapContinent : l_MapContinents) {
+			int l_Flag=0;
+			outerloop:
+				for(Country l_CountryOfContinent : l_MapContinent.getCountryList()) {
+					for(Country l_CountryOfPlayer: d_Countries) {
+						if(!(l_CountryOfPlayer==l_CountryOfContinent)) {
+							l_Flag =1;break outerloop;
+						}
+					}
+				}
+			if(l_Flag==0) {
+				d_Continents.add(l_MapContinent);
+			}
+		}
+	}
+	/**
+	 * get method for continent list of the player
+	 * @return returns the list of continents
+	 */
+	public ArrayList<Continent> getContinentList() {
+		return d_Continents;
+	}
+
+	/**
+	 * The getResult return the result whether the order was added to the order list or not to the Player controller.
+	 * @return returns the result of issue order
+	 */
+	public String getResult() {
+		return this.d_Result;
+	}
+	/**
+	 * set method for result of issue order
+	 * @param p_Result the result after issuing an order
+	 */
+	public void setResult(String p_Result) {
+		this.d_Result = p_Result;
 	}
 
 }
