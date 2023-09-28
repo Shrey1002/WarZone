@@ -78,6 +78,17 @@ public class GameEngine {
 
 				case "editcountry" :
                     {
+						if(d_MapDone==false) {
+							try {
+								String l_AckMsg = d_MapController.editMap("editcountry", l_CommandStringFromInput);
+								d_CpView.setCommandAcknowledgement(l_AckMsg + "\n");
+							}catch(Exception p_Exception) {
+								d_CpView.setCommandAcknowledgement(p_Exception.getMessage());
+								d_CpView.setCommandAcknowledgement("\n");
+							}
+						}else {
+							d_CpView.setCommandAcknowledgement("Cant Edit Map In This Phase"+"\n");
+						}
                     }
                     break;
 
@@ -133,3 +144,4 @@ public class GameEngine {
 			}
 		}
 	}
+}
