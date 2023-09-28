@@ -2,20 +2,22 @@ package model;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Iterator;
 
 public class Player {
     private String d_PlayerName="";
-    private GameModelNew d_GameModelNew;
-    private int d_PlayerId;
+	private int d_PlayerId;
 	private String d_PlayerColor = "";
-	private ArrayList<Country> d_Countries = new ArrayList<Country>();
 	private int d_Armies;
 	private int d_TempArmies;
+	private int d_ResultInteger;
+	private ArrayList<Country> d_Countries = new ArrayList<Country>();
+	private Queue<Order> d_Order = new LinkedList<Order>();
 	private ArrayList<Continent> d_Continents = new ArrayList<Continent>();
 	private String d_Result="";
-	private Queue<Order> d_Order = new LinkedList<Order>();
 	private String d_StringOrder="";
-	
+	private GameModelNew d_GameModelNew;
+
     /**
 	 * default constructor of Player class	
 	 */
@@ -183,7 +185,61 @@ public class Player {
 	public int getResultInteger() {
 		return this.d_ResultInteger;
 	}
-
-
-
+/**
+	 * The issue order method checks the order issued by the player whether the country it is asking for is in its country list or not
+	 * and whether it has sufficient armies and it sets the result accordingly. 
+	 * If the country is in the country list and if the player has sufficient armies than the order is added to its order list.
+	 * There are 5 cases 
+	 * <ul><li>when the result integer is 1 - The number of armies asked to deploy on a country in the list of the player is less than the number of armies with the players.The order is added into the Order List and the armies are subtracted from the armies of the player.
+	 * <li>when the result integer is 2 - When the number of armies after successfully adding the order in the list becomes zero. The order is added to the Order list and the armies are subtracted from the armies of the player.
+	 * <li>when the result integer is 3 - When the country asked to deploy armies doesn't belongs to the player.The order is not added to the order list.
+	 * <li>when the result integer is 4 - When the number of armies asked to deploy is more than the number of armies with the player.The order is not added to the order list. 
+	 * <li>when the result integer is 5 - When incorrect command is entered.The order is not added to the order list.
+	 * </ul>
+	 */
+	public void issue_order() {
+		int l_Flag = 0;
+		d_ResultInteger = 0;
+		String[] l_StringList = d_StringOrder.split(" ");
+		if(l_StringList[0].equals("deploy")) {
+			if(Integer.parseInt(l_StringList[2]) <= d_Armies){
+				Iterator<Country>l_It = d_Countries.iterator();
+				while(l_It.hasNext()) {
+					Country l_TempCountry = (Country)l_It.next() ;
+					if(l_StringList[1].equals(l_TempCountry.getCountryName())) {
+						l_Flag=1;
+						break;
+					}
+				}
+				if(l_Flag==1) {
+					d_Armies-= Integer.parseInt(l_StringList[2]);
+					d_Order.add(new Order(d_StringOrder,d_GameModelNew));
+					d_ResultInteger = 1;
+					setResult("\norder "+d_StringOrder+" added to list of "+d_PlayerName);
+					if(d_Armies==0) {
+						d_ResultInteger = 2;
+						setResult("\n"+d_PlayerName+" : Your armies have become zero now!!. You will not be able to issue an order");
+					}
+				} else {
+					d_ResultInteger = 3;
+					setResult("\nThis country "+l_StringList[1]+" doesnot belongs to "+d_PlayerName);
+				}
+			} else {
+				d_ResultInteger = 4;
+				setResult("\n"+d_PlayerName+" ; you have only "+d_Armies+" number of armies! Please enter the next order accordingly");
+			}
+		}
+		else
+		{
+			d_ResultInteger = 5;
+			setResult("\n"+d_PlayerName+"Please enter Valid Command next time!");
+		}
+	}
+	/**
+	 * This method removes the first order in the queue Order list
+	 * @return returns the first order in the Order List
+	 */
+	public Order next_order() {
+		return d_Order.remove();
+	}
 }
