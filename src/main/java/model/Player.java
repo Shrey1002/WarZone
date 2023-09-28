@@ -13,7 +13,8 @@ public class Player {
 	private int d_TempArmies;
 	private ArrayList<Continent> d_Continents = new ArrayList<Continent>();
 	private String d_Result="";
-	
+	private Queue<Order> d_Order = new LinkedList<Order>();
+	private String d_StringOrder="";
 	
     /**
 	 * default constructor of Player class	
@@ -146,5 +147,43 @@ public class Player {
 	public void setResult(String p_Result) {
 		this.d_Result = p_Result;
 	}
+	/**
+	 * The setOrder method gets the order in string format for that player.
+	 * @param p_Order Order entered by the player
+	 */
+	public void setOrder(String p_Order) {
+		this.d_StringOrder = p_Order;
+	}
+
+	/**
+	 * get method for the size of the country list of the player
+	 * @return size of the country list
+	 */
+	public int getCountriesSize() {
+		return this.d_Countries.size();
+	}
+	/**
+	 * Get method for the Country list of the player
+	 * @return returns the country list of the player
+	 */
+	public ArrayList<Country> getCountryList() {
+		return this.d_Countries;
+	}
+	/**
+	 * get method for the Order list size of the player
+	 * @return size of the order list 
+	 */
+	public int getOrderSize() {
+		return this.d_Order.size();
+	}
+	/**
+	 * get method for the result Integer. It is a flag which defines the result of the issue order method
+	 * @return integer set for determining the result of issue order method
+	 */
+	public int getResultInteger() {
+		return this.d_ResultInteger;
+	}
+
+
 
 }
