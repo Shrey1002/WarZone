@@ -35,6 +35,14 @@ public class GameModelNew {
     }
 
     /**
+	 * get Method for map
+	 * @return returns map
+	 */
+	public Map getMap() {
+		return this.d_Map;
+	}
+
+    /**
      * This method used to get the game phases from enumuerator
      * 
      * @return d_gamePhase
