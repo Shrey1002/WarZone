@@ -248,5 +248,95 @@ public class Map {
 			throw new Exception("Continent does not exist !!");
 		}
 	}
+	/**
+	 * This method adds a new country in the map. 
+	 * 
+	 * @param p_CountryName Name of the country to be added
+	 * @param p_ContinentName Name of the parent continent
+	 * @throws Exception In case country already exists, it throws an exception
+	 */
+	public void addCountry(String p_CountryName, String p_ContinentName)throws Exception {
+		int l_Flag = 0;
+		for(Continent l_C: this.getContinentList()){
+			if(l_C.getContinentName().equals(p_ContinentName)){
+				l_Flag=1;
+				break;
+			}
+		}
+		if(l_Flag==0){
+			throw new Exception("Continent Doesn't Exist to add a Country");
+		}
+		Country l_TempCountry = new Country(p_CountryName, p_ContinentName);
+		for(Country l_Country : d_CountryObjects) {
+			if(l_Country.getCountryName().equalsIgnoreCase(p_CountryName)) {
+				throw new Exception("Country Already Exist");
+			}
+		}
+		this.d_CountryObjects.add(l_TempCountry);
+		for(Continent l_Continent : d_ContinentObjects) {
+			if(l_Continent.getContinentName().equals(p_ContinentName)) {
+				l_Continent.addCountry(l_TempCountry);
+			}
+		}
+	}
 
+	/**
+	 * This method removes the country from the map. 
+	 * This method is used at two places. 1) editcountry remove 2) editcontinent remove (to remove all countries of continent)
+	 * 
+	 * @param p_CountryName Name of the country to be removed
+	 * @param p_IsOnlyCountryRemove This flag tells the method if it is a editcontinent command or editcountry. True for editcountry 
+	 * @throws Exception if country in the list doesn't exist, it throws an exception
+	 */
+	public void removeCountry(String p_CountryName, boolean p_IsOnlyCountryRemove)throws Exception {
+		Iterator<Country> l_Iterator = this.d_CountryObjects.iterator();
+		boolean l_RemovedFlag = false;
+		int l_TempCountryIdOfCountryToBeRemoved = 0;
+		while(l_Iterator.hasNext()) {
+			Country l_TempCountry = l_Iterator.next();
+			if(l_TempCountry.getCountryName().equalsIgnoreCase(p_CountryName)) {
+				//Below block is executed only when "editcountry remove" command is called. Not for "editcontinent remove" command. 
+				l_TempCountryIdOfCountryToBeRemoved = l_TempCountry.getCountryID();
+				if(p_IsOnlyCountryRemove) {											
+					String l_OwnerContinent = l_TempCountry.getContinentName();
+					for(Continent l_TempContinent : d_ContinentObjects) {
+						if(l_TempContinent.getContinentName().equals(l_OwnerContinent)) {
+							ArrayList<Country> l_CountryListOfOwnerContinent = l_TempContinent.getCountryList();
+							removeCountryFromContinent(p_CountryName, l_CountryListOfOwnerContinent);
+						}
+					}
+				}
+				for(Country l_Country : d_CountryObjects) {
+					ArrayList<String> l_CountryNeighbors = l_Country.getBorder();
+					Iterator<String> l_NeighborIterator = l_CountryNeighbors.iterator();
+					while(l_NeighborIterator.hasNext()) {
+						String l_NeighborName = l_NeighborIterator.next().toString();
+						if(l_NeighborName.equalsIgnoreCase(p_CountryName)) {
+							l_NeighborIterator.remove();
+						}
+					}
+				}
+				//Here we have to remove from the hashmap. 
+				for(int l_I=1;l_I<=d_Neighbors.size();l_I++) {
+					if(d_Neighbors.get(l_I)!=null) {
+						ArrayList<Integer> l_TempCountryIdList = d_Neighbors.get(l_I);
+						Iterator<Integer> l_TempCountryNeighborIterator = l_TempCountryIdList.iterator();
+						while(l_TempCountryNeighborIterator.hasNext()) {
+							if(l_TempCountryNeighborIterator.next()==l_TempCountryIdOfCountryToBeRemoved) {
+								l_TempCountryNeighborIterator.remove();
+							}
+						}
+					}
+					if(l_I==l_TempCountryIdOfCountryToBeRemoved) {
+						d_Neighbors.remove(l_TempCountryIdOfCountryToBeRemoved);
+					}
+				}
+				l_Iterator.remove();
+				l_RemovedFlag = true;
+			}
+		}
+		if(!l_RemovedFlag){
+			throw new Exception("Country does not exist !!");
+		}
+	}
 }
