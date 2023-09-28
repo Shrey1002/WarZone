@@ -225,4 +225,28 @@ public class Map {
 			throw new Exception("Please enter a valid Integer for Continent Control Value");
 		}
 	}
+
+	/**
+	 * This method removes the continent when user enters remove continent command.
+	 * It also removes all the countries inside that continent. 
+	 * 
+	 * @param p_ContinentName Name of the continent to be removed
+	 * @throws Exception In case the continent doesn't exist, it throws an exception
+	 */
+	public void removeContinent(String p_ContinentName)throws Exception {
+		Iterator<Continent> l_Iterator = this.d_ContinentObjects.iterator();
+		boolean l_RemovedFlag = false;
+		while(l_Iterator.hasNext()) {
+			Continent l_TempContinent = l_Iterator.next();
+			if(l_TempContinent.getContinentName().equalsIgnoreCase(p_ContinentName)) {
+				removeAllCountryInContinent(l_TempContinent);
+				l_Iterator.remove();
+				l_RemovedFlag = true;
+			}
+		}
+		if(!l_RemovedFlag){
+			throw new Exception("Continent does not exist !!");
+		}
+	}
+
 }
