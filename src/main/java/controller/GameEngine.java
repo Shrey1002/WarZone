@@ -44,8 +44,6 @@ public class GameEngine {
 	public class CommandListener implements ActionListener{
 		private boolean d_MapDone = false;
 
-
-
 		/**
 		 * {@inheritDoc}
 		 * On click of the button in view, this method gets the string which user entered. 
@@ -94,11 +92,23 @@ public class GameEngine {
 
 				case "editneighbor" :
                     {
+						if(d_MapDone==false) {
+							try {
+								String l_AckMsg = d_MapController.editMap("editneighbor", l_CommandStringFromInput);
+								d_CpView.setCommandAcknowledgement(l_AckMsg + "\n");
+							}catch(Exception p_Exception) {
+								d_CpView.setCommandAcknowledgement(p_Exception.getMessage());
+								d_CpView.setCommandAcknowledgement("\n");
+							}
+						} else {
+							d_CpView.setCommandAcknowledgement("Cant Edit Map In This Phase"+"\n");
+						}
                     }
                     break;
 
 				case "showmap": 
 					{
+						showMap(d_MapDone);
                     }
                     break;
 
@@ -144,4 +154,71 @@ public class GameEngine {
 			}
 		}
 	}
+
+	/**
+	 * This is a method to show all countries and continents, armies on each country, ownership, and connectivity
+	 * <ul>
+	 * <li>Map Phase : For Each Continent in Continent List, For each country in that continent, For each neighbor in that country</li>
+	 * <li>Game Phase : Apart from continent, country and neighbors, it also shows player, thier ownership and their number of armies. </li>
+	 * </ul>
+	 * 
+	 * @param p_BooleanForGamePhaseStarted takes boolean value to show map for map phase or game phase
+	 */
+	public void showMap(Boolean p_BooleanForGamePhaseStarted) {
+		if(p_BooleanForGamePhaseStarted) {
+			d_PlayerList = d_GameModelNew.getAllPlayers();
+			ArrayList<Continent> l_ContinentList = d_GameModelNew.getMap().getContinentList();
+			if(l_ContinentList.size()>0) {
+				d_CpView.setCommandAcknowledgement("\n");
+				for(Continent l_Continent:l_ContinentList) {
+					d_CpView.setCommandAcknowledgement("Continent: "+l_Continent.getContinentName() + "\n");
+					ArrayList<Country> l_CountryList = l_Continent.getCountryList();
+					d_CpView.setCommandAcknowledgement("\n");
+					for(Country l_Country:l_CountryList) {
+						d_CpView.setCommandAcknowledgement("Country: "+ l_Country.getCountryName());
+						if(this.d_PlayerList!=null) {
+							for(Player l_Player: d_PlayerList) {
+								if(l_Player.getCountryList().contains(l_Country)) {
+									d_CpView.setCommandAcknowledgement("\n"+"-->Owner: "+l_Player.getPlayerName() );
+									d_CpView.setCommandAcknowledgement("\n"+"-->Armies deployed: "+l_Country.getNoOfArmies());
+								}
+							}
+						}
+						ArrayList<String> l_NeighborList = l_Country.getBorder();
+						if(l_NeighborList.size()>0) {
+							d_CpView.setCommandAcknowledgement("\n"+"--> Borders : ");
+							for(String l_Str:l_NeighborList) {
+								d_CpView.setCommandAcknowledgement(l_Str+ ",");
+							}	
+						}
+						d_CpView.setCommandAcknowledgement("\n");
+					}
+					d_CpView.setCommandAcknowledgement("\n");
+				}
+			}
+		} else {
+			ArrayList<Continent> l_ContinentList = d_GameModelNew.getMap().getContinentList();
+			if(l_ContinentList.size()>0) {
+				d_CpView.setCommandAcknowledgement("\n");
+				for(Continent l_Continent:l_ContinentList) {
+					d_CpView.setCommandAcknowledgement("Continent: "+l_Continent.getContinentName() + "\n");
+					ArrayList<Country> l_CountryList = l_Continent.getCountryList();
+					d_CpView.setCommandAcknowledgement("Countries:"+"\n");
+					for(Country l_Country:l_CountryList) {
+						d_CpView.setCommandAcknowledgement(l_Country.getCountryName());
+						ArrayList<String> l_NeighborList = l_Country.getBorder();
+						if(l_NeighborList.size()>0) {
+							d_CpView.setCommandAcknowledgement("--> Borders : ");
+							for(String l_Str:l_NeighborList) {
+								d_CpView.setCommandAcknowledgement(l_Str+ " ");
+							}
+						}
+						d_CpView.setCommandAcknowledgement("\n");
+					}
+					d_CpView.setCommandAcknowledgement("\n");
+				}
+			}
+		}
+	}
+
 }

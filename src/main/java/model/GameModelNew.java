@@ -51,5 +51,13 @@ public class GameModelNew {
     public void setGamePhase(Phases d_gamePhase) {
         this.d_gamePhase = d_gamePhase;
     }
+	/**
+	 * this method will get all the players from the ArrayList
+	 * 
+	 * @return d_PlayerList, ArrayList of all the available players from player class
+	 */
+	public ArrayList<Player> getAllPlayers() {
+		return this.d_PlayerList;
+	}
 
 }
