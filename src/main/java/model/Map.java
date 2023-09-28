@@ -339,4 +339,35 @@ public class Map {
 			throw new Exception("Country does not exist !!");
 		}
 	}
+
+	/**
+	 * This method is called to remove specific country from the country list of continent
+	 * 
+	 * @param p_CountryName Name of the country to be removed
+	 * @param p_CountryListOfSpecificContinent	List of all countries of the parent continent where this country belongs
+	 */
+	public void removeCountryFromContinent(String p_CountryName, ArrayList<Country> p_CountryListOfSpecificContinent) {
+		Iterator<Country> l_Iterator = p_CountryListOfSpecificContinent.iterator();
+		while(l_Iterator.hasNext()) {
+			Country l_TempCountry = l_Iterator.next();
+			if(l_TempCountry.getCountryName().equalsIgnoreCase(p_CountryName)) {
+				l_Iterator.remove();
+			}
+		}
+	}
+
+	/**
+	 * This method removes all the countries in a given continent.
+	 * 
+	 * @param p_TempContinent Reference of continent object for which all countries are to be removed. 
+	 * @throws Exception throws exception in case of error
+	 */
+	public void removeAllCountryInContinent(Continent p_TempContinent) throws Exception {
+		ArrayList<Country> l_TempCountryList = p_TempContinent.getCountryList();
+		Iterator<Country> l_CountriesOfContinent = l_TempCountryList.iterator();
+		while(l_CountriesOfContinent.hasNext()) {
+			Country l_TempCountryToBeRemoved = l_CountriesOfContinent.next();
+			removeCountry(l_TempCountryToBeRemoved.getCountryName(),false);
+		}
+	}
 }
