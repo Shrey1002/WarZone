@@ -15,6 +15,22 @@ public class MapController {
 	private Map d_MapModel;
 
 
+	/**
+	 * This method calls the savemap method of the mapmodel to save the map in file.
+	 * @param p_Str the command given by user to save map
+	 * @return l_Result a feedback message on success or error of save function.
+	 * @throws Exception throws exception when there is any error during savemap
+	 */
+	public String saveMap(String p_Str)throws Exception {
+		String[] l_CommandArray = p_Str.split(" ");
+		if(l_CommandArray.length<2){
+			throw new Exception("Please Enter valid Filename to save the map");
+		}
+		String l_Result=d_MapModel.saveMap(l_CommandArray[1]);
+		return l_Result;
+	}
+
+
     /**
 	 * This method takes the keyword and entire command from the CommandPrompt and then checks it with all the cases.
 	 * After checking it performs the specific functionality and returns the feedback accordingly

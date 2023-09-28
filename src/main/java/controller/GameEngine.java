@@ -2,6 +2,8 @@ package controller;
 
 import java.awt.event.ActionListener;
 
+import model.Continent;
+import model.Country;
 import model.GameModelNew;
 import view.CommandPrompt;
 import java.util.ArrayList;
@@ -114,6 +116,16 @@ public class GameEngine {
 
 				case "savemap":
 					{
+						if(d_MapDone==false) {
+						try {
+							String l_Result=d_MapController.saveMap(l_CommandStringFromInput);
+							d_CpView.setCommandAcknowledgement(l_Result+"\n");
+						}catch(Exception p_Exception) {
+							d_CpView.setCommandAcknowledgement(p_Exception.getMessage()+"\n");
+						}
+					}else{
+						d_CpView.setCommandAcknowledgement("Cant Save Map In This Phase"+"\n");
+					}
                     }
                     break;
 
