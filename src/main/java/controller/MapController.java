@@ -14,6 +14,14 @@ public class MapController {
     
 	private Map d_MapModel;
 
+	/**
+	 * This is a constructor which receives Map object as parameter which is used throughout the class
+	 * @param p_Map This is a reference of Map object (within GameModel) passed from parent GameEngine.
+	 */
+	public MapController(Map p_Map) {
+		d_MapModel = p_Map;
+	}
+
 
 	/**
 	 * This method calls the savemap method of the mapmodel to save the map in file.
@@ -30,6 +38,29 @@ public class MapController {
 		return l_Result;
 	}
 
+
+	/**
+	 * This method calls the loadmap method of mapmodel and passes the filename parameter to load a map which is in file
+	 * 
+	 * @param p_Str It is the command from the CommandPrompt
+	 * @return l_result a feedback message on success or error
+	 * @throws Exception throws exception if there is any exception occured during loading the map
+	 */
+	public String loadMap(String p_Str)throws Exception{
+		String[] l_CommandArray = p_Str.split(" ");
+		if(l_CommandArray[0].equals("editmap")) {
+			String l_Result=d_MapModel.loadMap(l_CommandArray[1]);
+			l_Result=l_Result+" You Can Now Edit IT";
+			return l_Result;
+		}else {
+			if(l_CommandArray.length<2){
+				throw new Exception("Please Enter valid Filename");
+			}
+			String l_Result=d_MapModel.loadMap(l_CommandArray[1]);
+			l_Result=l_Result+" You Can Now Proceed To Add Players";
+			return l_Result;
+		}
+	}
 
     /**
 	 * This method takes the keyword and entire command from the CommandPrompt and then checks it with all the cases.

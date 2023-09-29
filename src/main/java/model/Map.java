@@ -7,7 +7,9 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;		
 import java.util.Iterator;
-import java.util.Scanner;	
+import java.util.Scanner;
+
+import controller.ValidateMap;	
 /**
  * This is the model class for the Map used in the game. 
  * This class consists of all the data members and behavior associated with Map. 
@@ -370,4 +372,18 @@ public class Map {
 			removeCountry(l_TempCountryToBeRemoved.getCountryName(),false);
 		}
 	}
+
+
+	/**
+	 * This method is used to validate the map. 
+	 * It creates an object of validate map and pass the neighbors hashmap to it. 
+	 * 
+	 * @return It returns the string to inform if map is valid or not. 
+	 * @throws Exception The countries are not internally connected
+	 */
+	public String validateMap() throws Exception {
+		ValidateMap l_VMap = new ValidateMap(this.d_CountryObjects,this.d_ContinentObjects);
+		return l_VMap.isValid();
+	}
+
 }

@@ -131,6 +131,16 @@ public class GameEngine {
 
 				case "editmap":
 					{
+						if(d_MapDone==false) {
+							try {
+								String l_Result=d_MapController.loadMap(l_CommandStringFromInput);
+								d_CpView.setCommandAcknowledgement(l_Result+"\n");
+							}catch(Exception p_Exception) {
+								d_CpView.setCommandAcknowledgement("The Mapfile Doesnt Exist. Please Create A New Map" +"\n");
+							}
+						}else{
+							d_CpView.setCommandAcknowledgement("Cant Edit Another Map In This Phase"+"\n");
+						}
                     }
                     break;
 
