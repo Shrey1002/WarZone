@@ -99,4 +99,28 @@ public class ValidateMap {
 		}
 		return l_TempMap;
 	}
+
+		/**
+	 * This method takes list of continents as a parameter and check if all the countries within that continent is internally connected.
+	 *  
+	 * @param p_ContinentObjects List of continents objects 
+	 * @throws Exception throws custom exception when all countries within particular continent are not connected. 
+	 */
+	public void checkContinentIsConnectedSubgraph(ArrayList<Continent> p_ContinentObjects)throws Exception{
+		HashMap<Integer,ArrayList<Integer>> l_CountryMapForEachContinent =new HashMap<Integer,ArrayList<Integer>>();
+		for(Continent l_C : p_ContinentObjects){
+			ArrayList<Country> l_Country=l_C.getCountryList();
+			l_CountryMapForEachContinent=updateCount(l_Country);
+			d_VertexCount = l_CountryMapForEachContinent.size();
+			d_VertexList = new ArrayList<>(d_VertexCount);
+			for(int l_I=0;l_I<d_VertexCount;l_I++) {
+				d_VertexList.add(new ArrayList<Integer>());
+			}
+			assignBorders(l_CountryMapForEachContinent);
+			String l_Return = isValid();
+			if(l_Return.equals("Map is not Valid")){
+				throw new Exception("The countries inside "+l_C.getContinentName()+" are not internally Connected");
+			}
+		}
+	}
 }
