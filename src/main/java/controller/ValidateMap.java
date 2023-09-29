@@ -65,6 +65,36 @@ public class ValidateMap {
 		return "Map is not Valid";
 	}
 
+	/**
+	 * This method fill all the values in the adjacency graph representation (i.e. d_VertexList).
+	 * 
+	 * @param p_HMap This parameter is the updated hash map created in updateCount method
+	 */
+	public void assignBorders(HashMap<Integer,ArrayList<Integer>> p_HMap) {
+		try {
+			for(int l_I=1;l_I<p_HMap.size()+1;l_I++) {
+				if(p_HMap.get(l_I)!=null) {
+					ArrayList<Integer> l_TempBorderList = p_HMap.get(l_I);
+					for(Integer l_TempBorderId:l_TempBorderList) {
+						addBorder(l_I-1, l_TempBorderId-1);
+					}
+				}
+			}
+		}catch(Exception l_E) {
+			System.out.println("Exception while assigning borders in validate map : " + l_E.getMessage());
+		}
+	}
+
+	/**
+	 * This method add the border 'p_V' at the index position 'p_U'
+	 * 
+	 * @param p_U index of the arraylist where border has to be added.
+	 * @param p_V value to be added in the arraylist
+	 */
+	public void addBorder(int p_U, int p_V) {
+		d_VertexList.get(p_U).add(p_V);
+	}
+
     /**
 	 * This method returns true if graph is connected. 
 	 * DFS starts from one index and try to reach every other index from there. 
