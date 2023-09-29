@@ -65,6 +65,40 @@ public class ValidateMap {
 		return "Map is not Valid";
 	}
 
+		/**
+	 * This method takes the arraylist of country objects and creates a new hashmap which is then returned to validation method
+	 * All the updation in countryid and their respective borders after addition/removal is taken care for the sake of validation.
+	 * 
+	 * @param p_CountryObjects List of country objects
+	 * @return d_UpdatedMap Hashmap which contains the updated ID and their respective borders of each country 
+	 */
+	public HashMap<Integer,ArrayList<Integer>> updateCount(ArrayList<Country> p_CountryObjects ){
+		int l_Sequence=0,l_ID;
+		ArrayList<String>l_UpdatedNeighbors=new ArrayList<String>();
+		ArrayList<Country> l_NCountryObjects=p_CountryObjects;
+		HashMap<Integer,Integer> l_UpdatedIDCount=new HashMap<Integer,Integer>();
+		HashMap<Integer,ArrayList<Integer>> l_UpdatedMap=new HashMap<Integer,ArrayList<Integer>>();
+		for(Country l_C: l_NCountryObjects){
+			l_Sequence++;
+			l_UpdatedIDCount.put(l_C.getCountryID(),l_Sequence);
+		}
+		for(Country l_C: l_NCountryObjects){
+			ArrayList<Integer>l_StoreNeighbors=new ArrayList<Integer>();
+			l_ID=l_UpdatedIDCount.get(l_C.getCountryID());
+			l_UpdatedNeighbors=l_C.getBorder();
+			for(String l_S: l_UpdatedNeighbors){
+				for(Country l_C2: l_NCountryObjects){
+					if(l_C2.getCountryName().equals(l_S)){
+						int l_NewNeighborID=l_UpdatedIDCount.get(l_C2.getCountryID());
+						l_StoreNeighbors.add(l_NewNeighborID);	
+					}
+				}
+			}
+			l_UpdatedMap.put(l_ID,l_StoreNeighbors);
+		}	
+		return l_UpdatedMap;	
+	}
+
 	/**
 	 * This method fill all the values in the adjacency graph representation (i.e. d_VertexList).
 	 * 
@@ -93,6 +127,22 @@ public class ValidateMap {
 	 */
 	public void addBorder(int p_U, int p_V) {
 		d_VertexList.get(p_U).add(p_V);
+	}
+
+	/**
+	 * This method checks if every continent has at least one country
+	 *  
+	 * @param p_CountryObjects List of country objects 
+	 * @param p_ContinentObjects List of continent objects
+	 * @return true if all continents have at least one country. false otherwise. 
+	 */
+	public boolean checkCountryAndContinent(ArrayList<Country> p_CountryObjects,ArrayList<Continent> p_ContinentObjects) {
+		for(Continent l_C1:p_ContinentObjects){
+			if(l_C1.getCountryList().size()<1){
+				return false;
+			}
+		}
+		return true;
 	}
 
     /**
