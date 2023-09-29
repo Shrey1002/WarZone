@@ -33,6 +33,45 @@ public class Country {
 		D_Count=p_Count;
 	}
 
+	/**
+	 * Method to return the name of the continent of the present country object
+	 *  @return d_ContinentName ContinentName
+	 */
+	public String getContinentName() {
+		return this.d_ContinentName;
+	}
+
+	/**
+	 * Method to set the borders of neighboring Countries
+	 * @param p_Border Name of neighboring country
+	 */
+	public  void setBorder(String p_Border){
+		this.d_Neighbors.add(p_Border);
+	}
+
+	/**
+	 * Method to get the list of neighboring Countries
+	 * @return d_Neighbors Arraylist of neighboring countries
+	 */
+	public  ArrayList<String> getBorder(){
+		return this.d_Neighbors;
+	}
+	/**
+	 * Method to get Country Name
+	 * @return Country Name
+	 */
+	public String getCountryName() {
+		return d_Name;
+	}
+
+	/**
+	 * Method to get Country ID
+	 * @return COuntry ID
+	 */
+	public int getCountryID() {
+		return d_ID;
+	}
+
     /**
 	 * Method to set the id of the country
 	 * @param p_Id Country ID
