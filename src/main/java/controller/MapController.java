@@ -68,7 +68,7 @@ public class MapController {
 					if(l_CommandArray.length<4) {
 						throw new Exception ("Please add control value for the continent");
 					}
-					d_MapModel.addContinent(l_CommandArray[l_Counter+1],l_CommandArray[l_Counter+2]);
+					d_MapModel.addContinent(l_CommandArray[l_Counter+2],l_CommandArray[l_Counter+1]);
 					l_Counter+=3;
 					l_AddContinentCounter+=1;
 					break;
