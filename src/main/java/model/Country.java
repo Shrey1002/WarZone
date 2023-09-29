@@ -79,4 +79,20 @@ public class Country {
 	public void setCountryID(int p_Id) {
 		d_ID = p_Id;
 	}
+
+	/**
+	 * Method to return the number of armies
+	 * @return NoOfArmies
+	 */
+	public int getNoOfArmies() {
+		return d_NoOfArmies;
+	}
+
+	/**
+	 * Method to set number of armies
+	 * @param p_NoOfArmies pass the number of armies to set
+	 */
+	public void setNoOfArmies(int p_NoOfArmies) {
+		d_NoOfArmies = p_NoOfArmies;
+	}
 }
