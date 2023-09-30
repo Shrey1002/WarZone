@@ -35,12 +35,13 @@ public class GameModelNew {
     }
 
     /**
-	 * get Method for map
-	 * @return returns map
-	 */
-	public Map getMap() {
-		return this.d_Map;
-	}
+     * get Method for map
+     * 
+     * @return returns map
+     */
+    public Map getMap() {
+        return this.d_Map;
+    }
 
     /**
      * This method used to get the game phases from enumuerator
@@ -59,13 +60,77 @@ public class GameModelNew {
     public void setGamePhase(Phases d_gamePhase) {
         this.d_gamePhase = d_gamePhase;
     }
-	/**
-	 * this method will get all the players from the ArrayList
-	 * 
-	 * @return d_PlayerList, ArrayList of all the available players from player class
-	 */
-	public ArrayList<Player> getAllPlayers() {
-		return this.d_PlayerList;
-	}
 
+    /**
+     * this method will get all the players from the ArrayList
+     * 
+     * @return d_PlayerList, ArrayList of all the available players from player
+     *         class
+     */
+    public ArrayList<Player> getAllPlayers() {
+        return this.d_PlayerList;
+    }
+
+    /**
+     * This method gets selected map.
+     *
+     * @return the selected map
+     */
+    public Map getSelectedMap() {
+        return this.d_Map;
+    }
+
+    /**
+     * This Method Adds the player based on user input from the command prompt.
+     * 
+     * @param p_PlayerName player name of player
+     * @throws Exception if player size is more that country size or if player
+     *                   already exists
+     */
+    public void addPlayer(String p_PlayerName) throws Exception {
+        if ((d_PlayerList.size() >= getSelectedMap().getCountryList().size())) {
+            throw new Exception("Reached Max Number of Players can be added to the game");
+        }
+        if (existDuplicatePlayer(p_PlayerName)) {
+            throw new Exception("Please enter a differnt Player name as this name already exists");
+        } else {
+            Player l_PlayerObject = new Player(p_PlayerName, this);
+            d_PlayerList.add(l_PlayerObject);
+        }
+    }
+
+    /**
+     * This method checks for duplicate players
+     *
+     * @param p_PlayerName Name of the player
+     * @return boolean this returns boolean value based if player already exists or
+     *         not
+     */
+    public boolean existDuplicatePlayer(String p_PlayerName) {
+        for (Player l_Player : d_PlayerList)
+            if (l_Player.getPlayerName().equalsIgnoreCase(p_PlayerName))
+                return true;
+        return false;
+    }
+
+    /**
+     * This Method removes players
+     * 
+     * @param p_PlayerName Name of the player
+     * @throws Exception if player is not found
+     */
+    public void removePlayer(String p_PlayerName) throws Exception {
+        Player l_CurrentPlayer;
+        boolean l_PlayerFound = false;
+        for (Player l_Player : d_PlayerList) {
+            l_CurrentPlayer = l_Player;
+            if (l_CurrentPlayer.getPlayerName().equalsIgnoreCase(p_PlayerName)) {
+                l_PlayerFound = true;
+                d_PlayerList.remove(d_PlayerList.indexOf(l_Player));
+            }
+        }
+        if (l_PlayerFound == false) {
+            throw new Exception("This Player does not exists");
+        }
+    }
 }

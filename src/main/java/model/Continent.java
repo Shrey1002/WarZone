@@ -33,5 +33,36 @@ public class Continent {
 	public void setContinentID(int p_ContinentID) {
 		d_ID = p_ContinentID;
 	}
+
+	/**
+	 * Method to get Continent ID
+	 * @return ContinentID  ID of the continent
+	 */
+	public int getContinentID() {
+		return d_ID;
+	}
+
+	/**
+	 * This is the setter method to set the value of Id
+	 * @param p_Count Integer that has the value to set in the ID
+	 */
+	public static void setCount(int p_Count) {
+		D_Count=p_Count;
+	}
     
+	/**
+	 * Method to return the Continent Name
+	 * @return d_Name  Name of the Continent 
+	 */
+	public String getContinentName() {
+		return this.d_Name;
+	}
+
+	/**
+	 * Method to add Country to the Continent
+	 * @param p_Country Country object
+	 */
+	public void addCountry(Country p_Country) {
+		this.d_CountryList.add(p_Country);
+	}
 }
