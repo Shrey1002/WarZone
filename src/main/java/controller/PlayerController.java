@@ -66,4 +66,38 @@ public class PlayerController {
 			}
 		}
 	}
+
+	/**
+	 * This method iterates till the player list doesn't becomes empty. This means all the orders of all the players are executed.
+	 * It works in a round robin fashion. All the players execute there orders one by one.
+	 * The player who's all orders are executed is removed from the list.
+	 */
+	public void playerNextOrder() {
+		ArrayList <Player> l_Players = d_Players;
+		ArrayList <Player> l_PlayersClone = (ArrayList<Player>) d_Players.clone();
+		while(!l_PlayersClone.isEmpty()) {
+			Iterator<Player>l_It = l_Players.iterator();
+			int l_Flag =0;
+			ArrayList<Player> l_RemovePlayerList = new ArrayList<Player>();
+			while(l_It.hasNext()) {
+				Player l_Player = (Player)l_It.next(); 
+				if(l_Player.getOrderSize()!=0) {
+					Order l_Order = l_Player.next_order();
+					System.out.println(l_Order.getOrder());
+					l_Order.execute();
+					String l_Result = l_Order.getExecuteResult();
+					d_OrderAcknowledgment = l_Result;
+					d_CpView.setCommandAcknowledgement(d_OrderAcknowledgment);
+				} else {
+					l_Flag = 1; l_RemovePlayerList.add(l_Player);
+				}
+			}
+			if(l_Flag == 1) {
+				for(Player l_TempRemovePlayer : l_RemovePlayerList) {
+					l_PlayersClone.remove(l_TempRemovePlayer);
+				}
+			}
+		}
+		d_CpView.setCommandAcknowledgement("\nOrders are Succesfully Executed!!");
+	}
 }
