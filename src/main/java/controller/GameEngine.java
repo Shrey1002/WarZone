@@ -48,6 +48,8 @@ public class GameEngine {
 	 */
 	public class CommandListener implements ActionListener {
 		private boolean d_MapDone = false;
+		private boolean d_StartUpDone = false;
+		private boolean d_AssignCountriesDone = false;
 
 		/**
 		 * {@inheritDoc}
@@ -165,6 +167,22 @@ public class GameEngine {
 						break;
 
 					case "gameplayer": {
+						if (d_MapDone == true & d_StartUpDone == false) {
+							try {
+								String l_AckMsg1 = editPlayer("GamePlayer", l_CommandStringFromInput);
+								d_CpView.setCommandAcknowledgement(l_AckMsg1 + "\n");
+							} catch (Exception p_Exception) {
+								d_CpView.setCommandAcknowledgement(p_Exception.getMessage() + "\n");
+								d_CpView.setCommandAcknowledgement("\n");
+							}
+						} else {
+							if (d_MapDone == false)
+								d_CpView.setCommandAcknowledgement(
+										"\n" + "The Map is Not Loaded Yet to Add Players " + "\n");
+							if (d_StartUpDone == true)
+								d_CpView.setCommandAcknowledgement("\n"
+										+ "You are trying to remove or add players after the startup phase" + "\n");
+						}
 					}
 						break;
 
@@ -182,6 +200,49 @@ public class GameEngine {
 						.println("Exception in ActionPerformed Method in ActionListener : " + p_Exception.getMessage());
 			}
 		}
+	}
+
+	/**
+	 * <p>
+	 * this Method will take inputs from the user and will add or remove player
+	 * according
+	 * to the inputs provided by the user
+	 * 
+	 * @param p_Command this is command entered by the player
+	 * @param p_Str     this is name entered by the player in the command prompt
+	 * @return l_ReturnString returns string acknowledgement based on the added or
+	 *         removed players
+	 * @throws Exception this is user defined exception based on the add player or
+	 *                   remove player method
+	 */
+	public String editPlayer(String p_Command, String p_Str) throws Exception {
+		String[] l_CommandArray = p_Str.split(" ");
+		int l_Counter = 1;
+		int l_AddCounter = 0;
+		int l_RemoveCounter = 0;
+		String l_ReturnString = "";
+		if (l_CommandArray.length < 3)
+			throw new Exception("Please provide valid Parameters to add player");
+		while (l_Counter < l_CommandArray.length) {
+			if (l_CommandArray[l_Counter].equals("-add")) {
+				d_GameModelNew.addPlayer(l_CommandArray[l_Counter + 1]);
+				l_Counter += 2;
+				l_AddCounter += 1;
+			} else if (l_CommandArray[l_Counter].equals("-remove")) {
+				d_GameModelNew.removePlayer(l_CommandArray[l_Counter + 1]);
+				l_Counter += 2;
+				l_RemoveCounter += 1;
+			} else {
+				break;
+			}
+		}
+		if (l_AddCounter > 0) {
+			l_ReturnString += "Number of Players Added : " + l_AddCounter + "\n";
+		}
+		if (l_RemoveCounter > 0) {
+			l_ReturnString += "Number of Players Removed : " + l_RemoveCounter + "\n";
+		}
+		return l_ReturnString;
 	}
 
 	/**
