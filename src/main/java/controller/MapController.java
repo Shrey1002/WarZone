@@ -68,6 +68,13 @@ public class MapController {
 	}
 
 	/**
+	 * This method will call the reset method of mapmodel class
+	 */
+	public void reset() {
+		d_MapModel.reset();
+	}
+
+	/**
 	 * This method takes the keyword and entire command from the CommandPrompt and
 	 * then checks it with all the cases.
 	 * After checking it performs the specific functionality and returns the

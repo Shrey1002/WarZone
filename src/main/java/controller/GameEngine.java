@@ -189,6 +189,23 @@ public class GameEngine {
 					case "assigncountries": {
 					}
 						break;
+					case "deploy":
+						break;
+
+					case "show":
+						if (d_MapDone == true) {
+							showAllPlayerWithArmies();
+							d_CpView.setCommandAcknowledgement("\n");
+						} else {
+							d_CpView.setCommandAcknowledgement(
+									"The Map is Not Loaded Yet to Perform Show Operation" + "\n");
+						}
+						break;
+
+					case "reset":
+						d_MapController.reset();
+						d_CpView.setCommandAcknowledgement("The Map is Reset" + "\n");
+						break;
 
 					default:
 						d_CpView.setCommandAcknowledgement("Invalid Command. Please try again.\n");
@@ -245,6 +262,20 @@ public class GameEngine {
 		return l_ReturnString;
 	}
 
+
+	/**
+	 * This Method will take assign countries from command prompt and will do
+	 * startup Phase as well as assigning reinforcements to the player
+	 * 
+	 * @throws Exception this is user defined exception based on AssignCountries if
+	 *                   there are no players assigned
+	 *                   then it will throw an exception
+	 * 
+	 */
+	public void assignCountries() throws Exception {
+		d_GameModelNew.startUpPhase();
+	}
+	
 	/**
 	 * This is a method to show all countries and continents, armies on each
 	 * country, ownership, and connectivity
