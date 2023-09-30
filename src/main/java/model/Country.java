@@ -81,6 +81,24 @@ public class Country {
 	}
 
 	/**
+	 * {@inheritDoc}
+	 * Compares the present Country object with other country object and returns true
+	 * If the Country object parameter is empty then it returns false
+	 * @param p_Country Country Object
+	 */
+	@Override
+	public boolean equals(Object p_Country) {
+		if(this == p_Country) {
+			return true;
+		}
+		if (p_Country == null || this.getClass() != p_Country.getClass()) {
+			return false;
+		}
+		Country l_P1 = (Country)p_Country; 
+		return this.getCountryName().equals(l_P1.getCountryName());
+	}
+
+	/**
 	 * Method to remove the Border
 	 * @param p_Border Neighbor name
 	 */
