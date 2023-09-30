@@ -113,4 +113,24 @@ public class GameModelNew {
         return false;
     }
 
+    /**
+     * This Method removes players
+     * 
+     * @param p_PlayerName Name of the player
+     * @throws Exception if player is not found
+     */
+    public void removePlayer(String p_PlayerName) throws Exception {
+        Player l_CurrentPlayer;
+        boolean l_PlayerFound = false;
+        for (Player l_Player : d_PlayerList) {
+            l_CurrentPlayer = l_Player;
+            if (l_CurrentPlayer.getPlayerName().equalsIgnoreCase(p_PlayerName)) {
+                l_PlayerFound = true;
+                d_PlayerList.remove(d_PlayerList.indexOf(l_Player));
+            }
+        }
+        if (l_PlayerFound == false) {
+            throw new Exception("This Player does not exists");
+        }
+    }
 }
