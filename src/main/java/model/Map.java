@@ -43,6 +43,24 @@ public class Map {
 	}
 
 	/**
+	 * This method prints the list of countries
+	 */
+	public void getCountries() {
+		for(Country l_Country: this.d_CountryObjects) {
+			System.out.println("ID : " + l_Country.getCountryID() + ", Name : " + l_Country.getCountryName() + ", ContinentName :" + l_Country.getContinentName());
+		}
+	}
+
+	/**
+	 * This method prints the list of continents
+	 */
+	public void getContinents() {
+		for(Continent l_Continent: this.d_ContinentObjects) {
+			System.out.println("ID :  " + l_Continent.getContinentID() +" Name : "+l_Continent.getContinentName());
+		}
+	}
+
+	/**
 	 * This method initializes the map from scratch by clearing all the containers inside it. 
 	 * This method clears Continent, Country and Neighbor containers. 
 	 * This method also set the static IDs of Country and Continents back to zero. 

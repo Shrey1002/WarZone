@@ -1,5 +1,5 @@
 package controller;
-
+import model.Map;
 /**
  * @author Abhishek Mavani
  * @version 1.0.1
