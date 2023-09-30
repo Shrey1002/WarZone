@@ -277,6 +277,23 @@ public class GameEngine {
 	}
 	
 	/**
+	 * This is a method to show all player details like
+	 * PlayerNames,armies,Countriesowned
+	 * 
+	 */
+	public void showAllPlayerWithArmies() {
+		d_PlayerList = d_GameModelNew.getAllPlayers();
+		for (Player l_Player : d_PlayerList) {
+			d_CpView.setCommandAcknowledgement(
+					"\n" + l_Player.getPlayerName() + "-->" + "armies assigned:" + l_Player.getPlayerArmies());
+			d_CpView.setCommandAcknowledgement("\n" + "Countries Assigned: ");
+			for (Country l_Country : l_Player.getCountryList()) {
+				d_CpView.setCommandAcknowledgement(l_Country.getCountryName() + ",");
+			}
+		}
+	}
+
+	/**
 	 * This is a method to show all countries and continents, armies on each
 	 * country, ownership, and connectivity
 	 * <ul>
