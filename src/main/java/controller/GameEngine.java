@@ -262,7 +262,6 @@ public class GameEngine {
 		return l_ReturnString;
 	}
 
-
 	/**
 	 * This Method will take assign countries from command prompt and will do
 	 * startup Phase as well as assigning reinforcements to the player
@@ -275,7 +274,7 @@ public class GameEngine {
 	public void assignCountries() throws Exception {
 		d_GameModelNew.startUpPhase();
 	}
-	
+
 	/**
 	 * This is a method to show all player details like
 	 * PlayerNames,armies,Countriesowned

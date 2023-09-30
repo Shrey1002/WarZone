@@ -1,6 +1,10 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+import java.util.Random;
 
 public class GameModelNew {
     /**
@@ -30,7 +34,7 @@ public class GameModelNew {
      */
     public GameModelNew(Map d_map) {
         super();
-        this.d_map = d_map;
+        this.d_Map = d_map;
         this.setGamePhase(Phases.Startup);
     }
 
