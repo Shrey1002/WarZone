@@ -6,17 +6,16 @@ import java.util.List;
 import java.util.Queue;
 import java.util.Random;
 
+/**
+ * This is the GameModelNew class of MVC model.
+ * This class has a references of Models.
+ * This class acts as an Data info for other controllers.
+ */
 public class GameModelNew {
-    /**
-     * Enumerator for all the game phases
-     */
-    public enum Phases {
-        Startup, Reinforcement, IssueOrder, ExecuteOrder
-    }
-
-    private Phases d_gamePhase;
     private Map d_Map;
-    private ArrayList<Player> d_PlayerList;
+	private Player d_PlayerID;
+	private ArrayList<Player> d_PlayerList;
+	private Queue<Player> d_PlayerQueue = new LinkedList<Player>();
 
     /**
      * Default constructor which initializes map and player List
@@ -27,16 +26,14 @@ public class GameModelNew {
     }
 
     /**
-     * This is a constructor of GameModel class which will initialize the Map and
-     * set the gamePhase
-     * 
-     * @param intializing map parameter ,
-     */
-    public GameModelNew(Map d_map) {
-        super();
-        this.d_Map = d_map;
-        this.setGamePhase(Phases.Startup);
-    }
+	 * This is parameterized constructor which takes Map parameter
+	 * 
+	 * @param p_Map parameter of map
+	 */
+	public GameModelNew(Map p_Map) {
+		this.d_Map = p_Map;
+		this.d_PlayerList = new ArrayList<Player>();
+	}
 
     /**
      * get Method for map
@@ -47,23 +44,27 @@ public class GameModelNew {
         return this.d_Map;
     }
 
-    /**
-     * This method used to get the game phases from enumuerator
-     * 
-     * @return d_gamePhase
-     */
-    public Phases getGamePhase() {
-        return d_gamePhase;
-    }
+    public void setMap(Map p_Map) {
+		this.d_Map = p_Map;
+	}
 
     /**
-     * This method used to set phase of the game
-     * 
-     * @param gamePhase we have different phases like startup and reinforcement,
-     */
-    public void setGamePhase(Phases d_gamePhase) {
-        this.d_gamePhase = d_gamePhase;
-    }
+	 * get Method for PlayerID
+	 * 
+	 * @return returns PlayerID
+	 */
+	public Player getPlayerId1() {
+		return this.d_PlayerID;
+	}
+
+	/**
+	 * set method for player id
+	 * 
+	 * @param d_PlayerID player id of player
+	 */
+	public void setPlayerId(Player d_PlayerID) {
+		this.d_PlayerID = d_PlayerID;
+	}
 
     /**
      * this method will get all the players from the ArrayList
