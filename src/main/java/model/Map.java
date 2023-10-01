@@ -401,6 +401,61 @@ public class Map {
 	}
 
 	/**
+	 * This method adds the border between two countries in the map. 
+	 * This is a one directional addition of border from source to target country. 
+	 * 
+	 * @param p_CountryName Name of the source country
+	 * @param p_NeighborName Name of the target country
+	 * @throws Exception Neighbor, Country not exists
+	 */
+	public void addBorder(String p_CountryName, String p_NeighborName) throws Exception {
+		int l_Flag=0;
+		for(Country l_C : this.getCountryList()) {
+			if(l_C.getCountryName().equals(p_NeighborName)) {
+				l_Flag=1;
+				break;
+			}
+		}
+		if(l_Flag==0) {
+			throw new Exception("Neighbour Country does not exists!");
+		}
+		int l_Flag1=0;
+		for(Country l_C : this.getCountryList()) {
+			if(l_C.getCountryName().equals(p_CountryName)) {
+				l_Flag1=1;
+				break;
+			}
+		}
+		if(l_Flag1==0) {
+			throw new Exception("Country does not exists!");
+		}
+		for(Country l_C: this.getCountryList()) {
+			if(l_C.getCountryName().equals(p_CountryName)) {
+				if(l_C.getBorder().contains(p_NeighborName)) {
+					throw new Exception("Neighbor Already Exist");
+				}
+			}
+		}
+		int l_NeighborId=0;
+		int l_CountryId=0;
+		for(Country l_TempCountry :  this.getCountryList()) {
+			if(l_TempCountry.getCountryName().equals(p_NeighborName)) {
+				l_NeighborId = l_TempCountry.getCountryID();
+			}
+		}
+		for(Country l_TempCountry : this.getCountryList()) {
+			if(l_TempCountry.getCountryName().equals(p_CountryName)) {
+				l_CountryId = l_TempCountry.getCountryID();
+				l_TempCountry.setBorder(p_NeighborName);
+			}
+		}
+		if(d_Neighbors.get(l_CountryId)==null) {
+			d_Neighbors.put(l_CountryId, new ArrayList<>());
+		}
+		d_Neighbors.get(l_CountryId).add(l_NeighborId);
+	}
+
+	/**
 	 * This method is used to validate the map. 
 	 * It creates an object of validate map and pass the neighbors hashmap to it. 
 	 * 
