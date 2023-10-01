@@ -138,4 +138,26 @@ public class GameModelNew {
             throw new Exception("This Player does not exists");
         }
     }
+
+    /**
+	 * This method sets the player queue
+	 *
+	 * @param d_PlayerQueue the Player queue
+	 *
+	 */
+	public void setplayerQueue(Queue<Player> d_PlayerQueue) {
+		this.d_PlayerQueue = d_PlayerQueue;
+
+	}
+
+	/**
+	 * This method sets army count to all players.
+	 *
+	 * @param p_Count count the assigned army count
+	 */
+	public void setPlayerArmies(int p_Count) {
+		for (Player l_Player : getAllPlayers()) {
+			l_Player.setPlayerArmies(p_Count);
+		}
+	}
 }
