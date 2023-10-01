@@ -391,6 +391,23 @@ public class Map {
 		}
 	}
 
+	/**
+	 * This method is to get list of continents
+	 * 
+	 * @return ArrayList of continents
+	 */
+	public ArrayList<Continent> getContinentList() {
+		return this.d_ContinentObjects;
+	}
+
+	/**
+	 * This method prints the list of continents
+	 */
+	public void getContinents() {
+		for(Continent l_Continent: this.d_ContinentObjects) {
+			System.out.println("ID :  " + l_Continent.getContinentID() +" Name : "+l_Continent.getContinentName());
+		}
+	}
 
 	/**
 	 * This method is used to validate the map. 
