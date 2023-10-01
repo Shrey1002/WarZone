@@ -84,4 +84,31 @@ public class CommandPrompt {
 	public void commandSendButtonListener(ActionListener p_ListenForCommandButton) {
 		d_CommandSendButton.addActionListener(p_ListenForCommandButton);
 	}
+
+  /**
+	 * This method draws the window displayed to the user. 
+	 * It consist of java swing functionality for different components. 
+	 */
+	public void drawWindow() {
+		d_CommandAcknowledgeArea.setEditable(false);
+		d_CommandAcknowledgeArea.setBackground(Color.black);
+		d_CommandAcknowledgeArea.setForeground(Color.cyan);
+		d_CommandAcknowledgeArea.setFont(d_Font);
+		d_Caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
+		d_CommandAcknowledgeArea.append("Welcome to RISK DOMINATION !!\n\n");
+		d_CommandAcknowledgeArea.append("Below are the list of commands you can use in map edit phase : \n");
+		d_CommandAcknowledgeArea.append("editcontinent -add continentID continentvalue -remove continentID \n"
+				+ "editcountry -add countryID continentID -remove countryID \n"
+				+ "editneighbor -add countryID neighborcountryID -remove countryID neighborcountryID \n");
+		d_CommandAcknowledgeArea.append("savemap filename \neditmap filename \nvalidatemap \nshowmap \n");
+		d_CommandAcknowledgeArea.append("Below are the list of commands you can use in game phase : \n");
+		d_CommandAcknowledgeArea.append("loadmap filename \ngameplayer -add playername -remove playername \nassigncountries \nshowmap \n");
+		d_CommandPromptPanel.add(d_CommandInput);
+		d_CommandPromptPanel.add(d_CommandSendButton);
+		d_CommandPromptWindow.add(d_AckAreaScrollPane, BorderLayout.PAGE_START);
+		d_CommandPromptWindow.add(d_CommandPromptPanel, BorderLayout.SOUTH);
+		d_CommandPromptWindow.setSize(600,550);
+		d_CommandPromptWindow.setVisible(true);
+		d_CommandPromptWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
 }
