@@ -13,9 +13,9 @@ import java.util.Random;
  */
 public class GameModelNew {
     private Map d_Map;
-	private Player d_PlayerID;
-	private ArrayList<Player> d_PlayerList;
-	private Queue<Player> d_PlayerQueue = new LinkedList<Player>();
+    private Player d_PlayerID;
+    private ArrayList<Player> d_PlayerList;
+    private Queue<Player> d_PlayerQueue = new LinkedList<Player>();
 
     /**
      * Default constructor which initializes map and player List
@@ -26,14 +26,14 @@ public class GameModelNew {
     }
 
     /**
-	 * This is parameterized constructor which takes Map parameter
-	 * 
-	 * @param p_Map parameter of map
-	 */
-	public GameModelNew(Map p_Map) {
-		this.d_Map = p_Map;
-		this.d_PlayerList = new ArrayList<Player>();
-	}
+     * This is parameterized constructor which takes Map parameter
+     * 
+     * @param p_Map parameter of map
+     */
+    public GameModelNew(Map p_Map) {
+        this.d_Map = p_Map;
+        this.d_PlayerList = new ArrayList<Player>();
+    }
 
     /**
      * get Method for map
@@ -45,26 +45,26 @@ public class GameModelNew {
     }
 
     public void setMap(Map p_Map) {
-		this.d_Map = p_Map;
-	}
+        this.d_Map = p_Map;
+    }
 
     /**
-	 * get Method for PlayerID
-	 * 
-	 * @return returns PlayerID
-	 */
-	public Player getPlayerId1() {
-		return this.d_PlayerID;
-	}
+     * get Method for PlayerID
+     * 
+     * @return returns PlayerID
+     */
+    public Player getPlayerId1() {
+        return this.d_PlayerID;
+    }
 
-	/**
-	 * set method for player id
-	 * 
-	 * @param d_PlayerID player id of player
-	 */
-	public void setPlayerId(Player d_PlayerID) {
-		this.d_PlayerID = d_PlayerID;
-	}
+    /**
+     * set method for player id
+     * 
+     * @param d_PlayerID player id of player
+     */
+    public void setPlayerId(Player d_PlayerID) {
+        this.d_PlayerID = d_PlayerID;
+    }
 
     /**
      * this method will get all the players from the ArrayList
@@ -140,24 +140,59 @@ public class GameModelNew {
     }
 
     /**
-	 * This method sets the player queue
-	 *
-	 * @param d_PlayerQueue the Player queue
-	 *
-	 */
-	public void setplayerQueue(Queue<Player> d_PlayerQueue) {
-		this.d_PlayerQueue = d_PlayerQueue;
+     * This method sets the player queue
+     *
+     * @param d_PlayerQueue the Player queue
+     *
+     */
+    public void setplayerQueue(Queue<Player> d_PlayerQueue) {
+        this.d_PlayerQueue = d_PlayerQueue;
 
-	}
+    }
 
-	/**
-	 * This method sets army count to all players.
-	 *
-	 * @param p_Count count the assigned army count
-	 */
-	public void setPlayerArmies(int p_Count) {
-		for (Player l_Player : getAllPlayers()) {
-			l_Player.setPlayerArmies(p_Count);
-		}
-	}
+    /**
+     * This method sets army count to all players.
+     *
+     * @param p_Count count the assigned army count
+     */
+    public void setPlayerArmies(int p_Count) {
+        for (Player l_Player : getAllPlayers()) {
+            l_Player.setPlayerArmies(p_Count);
+        }
+    }
+
+    /**
+     * <p>
+     * This Method will assign armies to the players.
+     * <ul>
+     * <li>This Method will check if they players size is greater than 0
+     * <li>If it is greater than 0 it will check for no of countries assigned for
+     * player /3 and assign armies count
+     * <li>If a PLayer holds complete continent Then we will add its continent value
+     * to the player army count
+     * <li>Now here we have used Max to assign Minimum armies to players of the army
+     * count is less than 3 else it gives max armies
+     * <li>Once the respective armies has been assigned to that particular player it
+     * will set armies to the player based on armycount
+     * </ul>
+     * 
+     * @throws Exception this Method will throw an Exception if player size is less
+     *                   than 0
+     * 
+     */
+    public void assignReinforcementArmies() throws Exception {
+        int l_ContinentValue = 0;
+        if (getAllPlayers().size() > 0) {
+            for (Player l_Player : getAllPlayers()) {
+                int l_ArmyCount = ((l_Player.getCountriesSize()) / 3);
+                for (Continent l_Continent : l_Player.getContinentList()) {
+                    l_ContinentValue = l_Continent.getContinentControlValue();
+                }
+                l_ArmyCount = Math.max(l_ArmyCount, 3);
+                l_Player.setPlayerArmies(l_ArmyCount + l_ContinentValue);
+            }
+        } else {
+            throw new Exception("\"Please enter players using gameplayer add command");
+        }
+    }
 }
