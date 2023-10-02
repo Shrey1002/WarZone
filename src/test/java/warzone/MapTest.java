@@ -183,5 +183,52 @@ public class MapTest {
 		assertEquals(l_ExpectedMessage, l_ActualMessage);
 	}
 
+    /**
+	 * to test the functionality of removeBorder()
+	 * @throws Exception If border does not exists, or country does not exists
+	 */
+	@Test
+	public void testRemoveBorder() throws Exception {
+		d_Map.removeBorder("china", "india");
+
+		for(Country l_Country: d_Map.getCountryList()) {
+			if(l_Country.getCountryName().equals("china")) {
+				assertFalse(l_Country.getBorder().contains("india"));
+			}
+		}
+	}
+
+	/**
+	 * To test removeBorder() to check if exception is thrown and caught on adding country that does not exists
+	 */
+	@Test
+	public void testRemoveBorderCountryDoesNotExist() {
+		String l_ExpectedMessage = "Country does not exists!";
+		String l_ActualMessage = "";
+		try {
+			d_Map.removeBorder("congo", "india");
+		} catch (Exception p_Exception) {
+			l_ActualMessage = p_Exception.getMessage();
+		}
+
+		assertEquals(l_ExpectedMessage, l_ActualMessage);
+	}
+
+	/**
+	 * To test removeBorder() to check if exception is thrown and caught on adding neighboring country that does not exists
+	 */
+	@Test
+	public void testRemoveBorderNeighborDoesNotExist() {
+		String l_ExpectedMessage = "Neighbour Country does not exists!";
+		String l_ActualMessage = "";
+		try {
+			d_Map.removeBorder("india", "congo");
+		} catch (Exception p_Exception) {
+			l_ActualMessage = p_Exception.getMessage();
+		}
+		assertEquals(l_ExpectedMessage, l_ActualMessage);
+	}
+
+
 	
 }
