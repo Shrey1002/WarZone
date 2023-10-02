@@ -92,5 +92,30 @@ public class MapTest {
 		}
 		assertEquals(l_ExpectedMessage, l_ActualMessage);
 	}
+
+	/**
+	 * This test checks the functionality of removeCountry()
+	 * @throws Exception If country does not exists
+	 */
+	@Test
+	public void testRemoveCountry() throws Exception {
+		d_Map.removeCountry("egypt", true);
+		assertFalse(d_Map.getCountryList().contains(d_Country5));
+	}
+
+	/**
+	 * This test checks the functionality of removeCountry() to see if the exception is thrown for country does not exists  
+	 */
+	@Test
+	public void testRemoveCountryThatDoesNotExists() {
+		String l_ExpectedMessage = "Country does not exist !!";
+		String l_ActualMessage = "";
+		try {
+			d_Map.removeCountry("congo", true);
+		}  catch (Exception p_Exception) {
+			l_ActualMessage = p_Exception.getMessage();
+		}
+		assertEquals(l_ExpectedMessage, l_ActualMessage);
+	}
 	
 }
