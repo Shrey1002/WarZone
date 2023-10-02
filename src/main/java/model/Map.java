@@ -454,6 +454,56 @@ public class Map {
 		}
 		d_Neighbors.get(l_CountryId).add(l_NeighborId);
 	}
+/**
+	 * This method removes the border between source and target. Uni-directional remove only
+	 * 
+	 * @param p_CountryName Name of the source country
+	 * @param p_NeighbourName Name of the target country
+	 * @throws Exception Country, Neighbor not exists
+	 */
+	public void removeBorder(String p_CountryName, String p_NeighbourName) throws Exception {
+		int l_NeighborId=0;
+		int l_CountryId=0;
+		int l_Flag=0,l_Flag1=0;
+		for(Country l_C : this.getCountryList()) {
+			if(l_C.getCountryName().equals(p_CountryName)) {
+				l_Flag=1;break;
+			}
+		}
+		if(l_Flag==0) {
+			throw new Exception("Country does not exists!");
+		}
+		for(Country l_C : this.getCountryList()) {
+			if(l_C.getCountryName().equals(p_NeighbourName)) {
+				l_Flag1=1;break;
+			}
+		}
+		if(l_Flag1==0) {
+			throw new Exception("Neighbour Country does not exists!");
+		}
+		for(Country l_TempCountry :  this.getCountryList()) {
+			if(l_TempCountry.getCountryName().equals(p_NeighbourName)) {
+				l_NeighborId = l_TempCountry.getCountryID();
+			}
+		}
+		for(Country l_TempCountry :  this.getCountryList()) {
+			if(l_TempCountry.getCountryName().equals(p_CountryName)) {
+				l_CountryId = l_TempCountry.getCountryID();
+				l_TempCountry.removeBorder(p_NeighbourName);
+			}
+		}
+		//removing it from all the countries in hasmap
+		if(d_Neighbors.get(l_CountryId).contains(l_NeighborId)) {
+			System.out.println("Country ID in neighbor : " + l_CountryId + " NeighborID : " + l_NeighborId);
+			ArrayList<Integer> l_ListOfNeighbors = d_Neighbors.get(l_CountryId);
+			Iterator<Integer> l_NeighborListIterator = l_ListOfNeighbors.iterator();
+			while(l_NeighborListIterator.hasNext()) {
+				if(l_NeighborListIterator.next()==l_NeighborId) {
+					l_NeighborListIterator.remove();
+				}
+			}
+		}	
+	}
 
 	/**
 	 * This method is used to validate the map. 
