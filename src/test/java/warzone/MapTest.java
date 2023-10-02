@@ -1,9 +1,12 @@
-package org.soen6441.model;
+package model;
 
 import java.util.ArrayList;
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
+
+import model.Continent;
+import model.Country;
 
 /**
  * To test the methods of Map.java 
@@ -58,6 +61,36 @@ public class MapTest {
 	@Test 
 	public void testAddCountry() {
 		assertTrue(d_Map.getCountryList().contains(d_Country5));
+	}
+
+	/**
+	 * This test checks the functionality of addCountry() to see if it adds a country to the continent that does not exists
+	 */
+	@Test 
+	public void testAddCountryContinentNotExists() {
+		String l_ExpectedMessage = "Continent Doesn't Exist to add a Country";
+		String l_ActualMessage = "";
+		try {
+			d_Map.addCountry("brazil", "SA");
+		} catch (Exception p_Exception) {
+			l_ActualMessage = p_Exception.getMessage();
+		}
+		assertEquals(l_ExpectedMessage, l_ActualMessage);
+	}
+
+	/**
+	 * This test checks the functionality of addCountry() to see if it catches exception thrown for country already exists
+	 */
+	@Test 
+	public void testAddCountryCountryExists() {
+		String l_ExpectedMessage = "Country Already Exist";
+		String l_ActualMessage = "";
+		try {
+			d_Map.addCountry("egypt", "africa");
+		} catch (Exception p_Exception) {
+			l_ActualMessage = p_Exception.getMessage();
+		}
+		assertEquals(l_ExpectedMessage, l_ActualMessage);
 	}
 	
 }
