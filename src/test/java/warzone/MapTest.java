@@ -117,5 +117,71 @@ public class MapTest {
 		}
 		assertEquals(l_ExpectedMessage, l_ActualMessage);
 	}
+
+	/**
+	 * This test checks the functionality of addBorder()
+	 */
+	@Test
+	public void testAddBorder() {
+		try {
+			d_Map.addBorder("india", "china");
+			d_Map.addBorder("india", "kenya");
+		} catch (Exception p_Exception) {
+			p_Exception.printStackTrace();
+		}		
+
+		for(Country l_Country: d_Map.getCountryList()) {
+			if(l_Country.getCountryName().equals("india")) {
+				assertTrue(l_Country.getBorder().contains("china"));
+			}
+		}
+	}
+
+	/**
+	 * To test addBorder() to check if exception is thrown and caught on adding neighbouring country that does not exists
+	 */
+	@Test
+	public void testAddBorderNeighborDoesNotExist() {
+		String l_ExpectedMessage = "Neighbour Country does not exists!";
+		String l_ActualMessage = "";
+		try {
+			d_Map.addBorder("india", "congo");
+		} catch (Exception p_Exception) {
+			l_ActualMessage = p_Exception.getMessage();
+		}
+
+		assertEquals(l_ExpectedMessage, l_ActualMessage);
+	}
+
+	/**
+	 * To test addBorder() to check if exception is thrown and caught on adding country that does not exists
+	 */
+	@Test
+	public void testAddBorderCountryDoesNotExist() {
+		String l_ExpectedMessage = "Country does not exists!";
+		String l_ActualMessage = "";
+		try {
+			d_Map.addBorder("congo", "india");
+		} catch (Exception p_Exception) {
+			l_ActualMessage = p_Exception.getMessage();
+		}
+		assertEquals(l_ExpectedMessage, l_ActualMessage);
+	}
+
+	/**
+	 * To test addBorder() to check if exception is thrown and caught on adding border that already exists
+	 */
+	@Test
+	public void testAddBorderNeighborExist() {
+		String l_ExpectedMessage = "Neighbor Already Exist";
+		String l_ActualMessage = "";
+		try {
+			d_Map.addBorder("japan", "china");
+		} catch (Exception p_Exception) {
+			l_ActualMessage = p_Exception.getMessage();
+		}
+		assertEquals(l_ExpectedMessage, l_ActualMessage);
+	}
+
 	
 }
