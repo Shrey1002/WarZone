@@ -187,6 +187,28 @@ public class GameEngine {
 						break;
 
 					case "assigncountries": {
+						if (d_MapDone == true & d_AssignCountriesDone == false) {
+							try {
+								assignCountries();
+							} catch (Exception p_Exception) {
+								d_CpView.setCommandAcknowledgement(p_Exception.getMessage());
+								d_CpView.setCommandAcknowledgement("\n");
+								break;
+							}
+							d_AssignCountriesDone = true;
+							d_StartUpDone = true;
+							showAllPlayerWithArmies();
+							d_CpView.setCommandAcknowledgement("\n");
+							d_PlayerController = new PlayerController(d_GameModelNew, d_CpView);
+							d_PlayerController.playerIssueOrder();
+							d_PlayerController.playerNextOrder();
+						} else {
+							if (d_MapDone == false)
+								d_CpView.setCommandAcknowledgement(
+										"\n" + "The Map is Not Loaded Yet to Add Assign Countries " + "\n");
+							if (d_AssignCountriesDone == true)
+								d_CpView.setCommandAcknowledgement("\n" + "StartUp Phase is already completed " + "\n");
+						}
 					}
 						break;
 					case "deploy":
