@@ -163,6 +163,50 @@ public class GameModelNew {
 
     /**
      * <p>
+     * This Method is the startup Phase method
+     * </p>
+     * <ul>
+     * <li>This Method will take all the players in a queue
+     * <li>Then it will check for all the countries available in a map
+     * <li>It will run the loop until all the countries are assigned to players
+     * <li>Now it will Randomly assign countries to all players and remove the
+     * assigned countries from the list
+     * <li>Finally once the assigning countries to players is completed it will call
+     * AssignReinforcementArmies Method
+     * </ul>
+     * 
+     * @throws Exception if there are no players in the list
+     *
+     */
+    public void startUpPhase() throws Exception {
+        if (getAllPlayers().size() > 1) {
+            d_PlayerQueue.addAll(getAllPlayers());
+            List<Country> l_CountryList = new ArrayList<>();
+            l_CountryList = (List<Country>) getSelectedMap().getCountryList().clone();
+            while (l_CountryList.size() > 0) {
+                Random l_Random = new Random();
+                int l_Index = l_Random.nextInt(l_CountryList.size());
+                setPlayerId(d_PlayerQueue.remove());
+                getPlayerId1().addCountry(l_CountryList.get(l_Index));
+                d_PlayerQueue.add(d_PlayerID);
+                l_CountryList.remove(l_Index);
+            }
+            for (Player l_Player : getAllPlayers()) {
+                l_Player.setContinentsList();
+            }
+
+            assignReinforcementArmies();
+        } else {
+            if (getAllPlayers().size() == 0) {
+                throw new Exception("Please enter players using gameplayer add command");
+            } else {
+                throw new Exception("One Player Found. Please enter more players using gameplayer add command");
+            }
+        }
+    }
+
+    /**
+     * <p>
      * This Method will assign armies to the players.
      * <ul>
      * <li>This Method will check if they players size is greater than 0
