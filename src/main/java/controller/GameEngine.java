@@ -1,5 +1,6 @@
 package controller;
 
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import model.Continent;
@@ -8,9 +9,7 @@ import model.GameModelNew;
 import view.CommandPrompt;
 import java.util.ArrayList;
 
-import model.GameModelNew;
 import model.Player;
-import view.CommandPrompt;
 
 /**
  * This is the main controller class of MVC model.
@@ -152,14 +151,14 @@ public class GameEngine {
 						break;
 
 					case "validatemap": {
-						if(d_MapDone==false) {
+						if (d_MapDone == false) {
 							try {
 								d_CpView.setCommandAcknowledgement(d_MapController.validateMap());
-							}catch(Exception p_Exception) {
-								d_CpView.setCommandAcknowledgement(p_Exception.getMessage() +"\n");
+							} catch (Exception p_Exception) {
+								d_CpView.setCommandAcknowledgement(p_Exception.getMessage() + "\n");
 							}
-						}else {
-							d_CpView.setCommandAcknowledgement("Cant validate Map In This Phase"+"\n");
+						} else {
+							d_CpView.setCommandAcknowledgement("Cant validate Map In This Phase" + "\n");
 						}
 					}
 						break;
