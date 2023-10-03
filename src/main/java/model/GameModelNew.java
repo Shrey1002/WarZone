@@ -44,6 +44,10 @@ public class GameModelNew {
         return this.d_Map;
     }
 
+    
+    /** 
+     * @param p_Map
+     */
     public void setMap(Map p_Map) {
         this.d_Map = p_Map;
     }

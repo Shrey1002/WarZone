@@ -1,12 +1,14 @@
-package model;
+package warzone;
 
 import java.util.ArrayList;
+
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
 import model.Continent;
 import model.Country;
+import model.Map;
 
 /**
  * To test the methods of Map.java 
