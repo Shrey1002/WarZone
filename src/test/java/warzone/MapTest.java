@@ -300,5 +300,33 @@ public class MapTest {
 		}
 	}
 
+	/**
+	 * To test functionality removeCountry() from the continent
+	 */
+	@Test
+	public void testRemoveCountryFromContinent() {
+		d_Map.removeCountryFromContinent(d_Country1.getCountryName(), d_C0.getCountryList());		
+		assertFalse(d_C0.getCountryList().contains(d_Country1));
+	}
+
+	/**
+	 * To test removeAllCountryFromContinent() method of Map.java
+	 */
+	@Test
+	public void testRemoveAllCountryFromContinent() {
+		try {
+			d_Map.removeAllCountryInContinent(d_C1);
+		} catch (Exception p_Exception) {
+			p_Exception.printStackTrace();
+		}
+		int l_Flag=0;
+		for(Country l_Country : d_C1.getCountryList()) {
+			if(d_Map.getCountryList().contains(l_Country)) {
+				l_Flag =1;break;
+			}
+		}
+		assertEquals(0,l_Flag);
+	}
+
 	
 }
