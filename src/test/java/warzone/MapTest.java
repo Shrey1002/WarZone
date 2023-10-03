@@ -229,6 +229,45 @@ public class MapTest {
 		assertEquals(l_ExpectedMessage, l_ActualMessage);
 	}
 
+	/**
+	 * To d_Check the functionality of addContinent
+	 * 
+	 */
+	@Test
+	public void testAddContinent() {
+		assertTrue(d_Map.getContinentList().contains(d_C0));
+	}
+
+	/**
+	 * To test addContinent() to d_Check  the continent control value
+	 */
+	@Test
+	public void testAddContinentContinentControlValue() {
+		String l_ExpectedMessage = "Continent control value cannot be 0";
+		String l_ActualMessage = "";
+		try {
+			d_Map.addContinent("europe", "0");
+		} catch (Exception p_Exception) {	
+			l_ActualMessage = p_Exception.getMessage();
+		}
+		assertEquals(l_ExpectedMessage,l_ActualMessage);
+	}
+
+	/**
+	 * To test addContinent() and d_Check if the Continent already Exists or not
+	 */
+	@Test
+	public void testAddContinentContinentExists() {
+		String l_ExpectedMessage = "Continent Already Exists";
+		String l_ActualMessage = "";
+		try {
+			d_Map.addContinent("asia", "1");
+		} catch (Exception p_Exception) {	
+			l_ActualMessage = p_Exception.getMessage();
+		}
+		assertEquals(l_ExpectedMessage,l_ActualMessage);
+	}
+
 
 	
 }
