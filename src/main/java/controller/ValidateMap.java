@@ -163,6 +163,18 @@ public class ValidateMap {
 		return true;
 	}
 
+		/**
+	 * This method is called from DFS function which sets the visited flag to true.
+	 * Also this method is called recursively for all the countries that are connected from the starting point. 
+	 * 
+	 * @param p_Start Starting point of the DFS function. 
+	 * @param p_NodeVisited boolean array which keeps track of which countries are visited and which are not visited. 
+	 */
+	private void markVisited(int p_Start, boolean[] p_NodeVisited) {
+		
+	}
+
+
     /**
 	 * This method takes the transpose of the graph. 
 	 * For Example : If there is a border between country 1 to 2, it will become 2 to 1 
