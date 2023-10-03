@@ -268,6 +268,37 @@ public class MapTest {
 		assertEquals(l_ExpectedMessage,l_ActualMessage);
 	}
 
+	/**
+	 * To test removeContinent() for its functionality
+	 */
+	@Test
+	public void testRemoveContinent(){
+		String l_ExpectedMessage = "Continent does not exist !!";
+		String l_ActualMessage = "";
+		try {
+			d_Map.removeContinent(d_C0.getContinentName());
+			d_Map.removeContinent(d_C0.getContinentName());
+		} catch (Exception p_Exception) {
+			l_ActualMessage = p_Exception.getMessage();
+		}	
+		assertEquals(l_ExpectedMessage,l_ActualMessage);
+	}
+
+	/**
+	 * To test Continent and check if country already exits or not
+	 */
+	@Test
+	public void testContinentForCountryExists() {
+		for(Country l_Country : d_Map.getCountryList()) {
+			int l_Flag=0;
+			for(Continent l_Continent : d_Map.getContinentList()) {
+				if(l_Continent.getContinentName().equals(l_Country.getContinentName())) {
+					l_Flag=1;break;
+				}
+			}
+			assertEquals(1,l_Flag);
+		}
+	}
 
 	
 }
