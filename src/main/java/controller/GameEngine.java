@@ -152,6 +152,15 @@ public class GameEngine {
 						break;
 
 					case "validatemap": {
+						if(d_MapDone==false) {
+							try {
+								d_CpView.setCommandAcknowledgement(d_MapController.validateMap());
+							}catch(Exception p_Exception) {
+								d_CpView.setCommandAcknowledgement(p_Exception.getMessage() +"\n");
+							}
+						}else {
+							d_CpView.setCommandAcknowledgement("Cant validate Map In This Phase"+"\n");
+						}
 					}
 						break;
 

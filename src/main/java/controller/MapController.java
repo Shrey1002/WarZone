@@ -75,6 +75,20 @@ public class MapController {
 	}
 
 	/**
+	 * This method calls the Validate map method from the mapmodel class
+	 * @return String which says if map is valid or not. 
+	 * @throws Exception if there is no map created
+	 * 
+	 */
+	public String validateMap() throws Exception {
+		if(d_MapModel.getContinentList().size()>0) {
+			return d_MapModel.validateMap();
+		} else {
+			throw new Exception("There is no map created");
+		}
+	}
+
+	/**
 	 * This method takes the keyword and entire command from the CommandPrompt and
 	 * then checks it with all the cases.
 	 * After checking it performs the specific functionality and returns the
