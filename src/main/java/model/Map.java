@@ -105,7 +105,7 @@ public class Map {
 	 */
 	public String loadMap(String p_FileName) throws Exception {
 		reset();
-		String l_Path = "resource\\", l_Result;
+		String l_Path = "resource/", l_Result;
 		int l_ControlValue, l_ContinentID = 1;
 		File l_File = new File(l_Path + p_FileName);
 		Scanner l_Sc = new Scanner(l_File);
@@ -193,7 +193,7 @@ public class Map {
 		if (l_Result.equals("Map is not Valid")) {
 			return l_Result;
 		}
-		String l_Path = "resource\\";
+		String l_Path = "resource/";
 		ArrayList<String> l_Borders = new ArrayList<>();
 		File l_File = new File(l_Path + p_FileName);
 		FileWriter l_Fw = new FileWriter(l_File);
