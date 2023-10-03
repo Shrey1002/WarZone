@@ -171,7 +171,12 @@ public class ValidateMap {
 	 * @param p_NodeVisited boolean array which keeps track of which countries are visited and which are not visited. 
 	 */
 	private void markVisited(int p_Start, boolean[] p_NodeVisited) {
-		
+		p_NodeVisited[p_Start] = true;
+		for(int l_I: d_VertexList.get(p_Start)) {
+			if(!p_NodeVisited[l_I]){
+				markVisited(l_I, p_NodeVisited);
+			}
+		}
 	}
 
 
