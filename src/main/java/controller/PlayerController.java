@@ -12,7 +12,9 @@ import model.GameModelNew;
 import model.Order;
 import model.Player;
 import view.CommandPrompt;
-
+/**
+ * The Player Controller class controls the activities of all the players at once.
+ */
 public class PlayerController {
 	private ArrayList<Player> d_Players;
 	private String d_OrderAcknowledgment = "";
