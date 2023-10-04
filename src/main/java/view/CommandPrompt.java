@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -35,7 +36,7 @@ public class CommandPrompt {
    * to display.
    */
   public CommandPrompt() {
-    d_CommandPromptWindow = new JFrame("Command Prompt");
+    d_CommandPromptWindow = new JFrame("RISK DOMINATION");
     d_CommandPromptPanel = new JPanel(new GridLayout(1, 2));
     d_CommandInput = new JTextField(100);
     d_CommandAcknowledgeArea = new JTextArea(30, 1);
@@ -43,7 +44,8 @@ public class CommandPrompt {
     d_AckAreaScrollPane = new JScrollPane(d_CommandAcknowledgeArea, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
         JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
     d_Caret = (DefaultCaret) d_CommandAcknowledgeArea.getCaret();
-    d_Font = new Font("Verdana", Font.BOLD, 12);
+    d_Caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
+    d_Font = new Font("Arial", Font.BOLD, 14);
     drawWindow();
   }
 
@@ -83,6 +85,16 @@ public class CommandPrompt {
 	 */
 	public void commandSendButtonListener(ActionListener p_ListenForCommandButton) {
 		d_CommandSendButton.addActionListener(p_ListenForCommandButton);
+    d_CommandSendButton.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+          // Append new text to the JTextArea
+
+          // Ensure auto-scrolling to the bottom
+          DefaultCaret caret = (DefaultCaret) d_CommandAcknowledgeArea.getCaret();
+          caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
+      }
+  });
 	}
 
   /**
@@ -92,17 +104,20 @@ public class CommandPrompt {
 	public void drawWindow() {
 		d_CommandAcknowledgeArea.setEditable(false);
 		d_CommandAcknowledgeArea.setBackground(Color.black);
-		d_CommandAcknowledgeArea.setForeground(Color.cyan);
+		d_CommandAcknowledgeArea.setForeground(Color.white);
 		d_CommandAcknowledgeArea.setFont(d_Font);
 		d_Caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
-		d_CommandAcknowledgeArea.append("Welcome to RISK DOMINATION !!\n\n");
-		d_CommandAcknowledgeArea.append("Below are the list of commands you can use in map edit phase : \n");
-		d_CommandAcknowledgeArea.append("editcontinent -add continentID continentvalue -remove continentID \n"
-				+ "editcountry -add countryID continentID -remove countryID \n"
-				+ "editneighbor -add countryID neighborcountryID -remove countryID neighborcountryID \n");
-		d_CommandAcknowledgeArea.append("savemap filename \neditmap filename \nvalidatemap \nshowmap \n");
-		d_CommandAcknowledgeArea.append("Below are the list of commands you can use in game phase : \n");
-		d_CommandAcknowledgeArea.append("loadmap filename \ngameplayer -add playername -remove playername \nassigncountries \nshowmap \n");
+		d_CommandAcknowledgeArea.append("\n Welcome to RISK DOMINATION !!\n\n");
+		d_CommandAcknowledgeArea.append(" Below are the list of commands you can use in map edit phase : \n");
+    d_CommandAcknowledgeArea.append(" -----------------------------------------------------------------------------------------\n");
+		d_CommandAcknowledgeArea.append(" 1. editcontinent -add continentID continentvalue -remove continentID \n"
+				+ " 2. editcountry -add countryID continentID -remove countryID \n"
+				+ " 3. editneighbor -add countryID neighborcountryID -remove countryID neighborcountryID \n");
+		d_CommandAcknowledgeArea.append(" 4. savemap filename \n 5. editmap filename \n 6. validatemap \n 7. showmap \n\n");
+    
+		d_CommandAcknowledgeArea.append(" Below are the list of commands you can use in game phase : \n");
+    d_CommandAcknowledgeArea.append(" ------------------------------------------------------------------------------------\n");
+		d_CommandAcknowledgeArea.append(" 1. loadmap filename \n 2. gameplayer -add playername -remove playername \n 3. assigncountries \n 4. showmap \n");
 		d_CommandPromptPanel.add(d_CommandInput);
 		d_CommandPromptPanel.add(d_CommandSendButton);
 		d_CommandPromptWindow.add(d_AckAreaScrollPane, BorderLayout.PAGE_START);

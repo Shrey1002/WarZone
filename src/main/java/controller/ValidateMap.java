@@ -63,9 +63,9 @@ public class ValidateMap {
 		ValidateMap l_TempMap = getTranspose(this.d_VertexList);
 		boolean l_B2 = l_TempMap.runDFS(0);
 		if (l_B1 && l_B2) {
-			return "Map is Valid";
+			return "Map is Valid\n";
 		}
-		return "Map is not Valid";
+		return "Map is not Valid\n";
 	}
 
 	/**
