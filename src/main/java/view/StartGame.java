@@ -17,7 +17,7 @@ public class StartGame {
      * It initialize the GameModel, GameView (i.e. CommandPrompt) and GameEngine.
      * Passes view and model in controller.
      * 
-     * @param p_Args default parameter for the main method which is not used
+     *@param args default parameter for the main method which is not used
      *               anywhere in the game.
      */
     public static void main(String[] args) {
