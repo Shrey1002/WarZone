@@ -330,5 +330,52 @@ public class MapTest {
 		assertEquals(0,l_Flag);
 	}
 
+	/**
+	 * To test the Validation of Map and Check whether it is a connected graph or not 
+	 * @throws Exception for Add borders and if continent is not a connected subgraph
+	 */
+	@Test
+	public void testValidateMap() throws Exception {
+		String l_Actual="", l_Expected="Map is Valid";
+		d_Map.addBorder("india", "kenya");
+		d_Map.addBorder("kenya", "egypt");
+		d_Map.addBorder("india", "japan");
+		l_Actual = d_Map.validateMap();
+		assertEquals(l_Expected,l_Actual);
+	}
+
+
+	/**
+	 * To test the Validation of Map and Check whether it is not a connected graph (Here continent is a connnected subgraph but the two continents are not)
+	 * @throws Exception for Add borders and if continent is not a connected subgraph
+	 */
+	@Test
+	public void testValidateMapFalse() throws Exception {
+		String l_Actual="", l_Expected="Map is not Valid";
+		d_Map.addBorder("kenya", "egypt");
+		d_Map.addBorder("india", "japan");
+		l_Actual = d_Map.validateMap();
+		assertEquals(l_Expected,l_Actual);
+	}
+
+
+	/**
+	 * To test the Validation of Map and Check whether continent is a connected subgraph or not
+	 * @throws Exception for Add borders and if continent is not a connected subgraph
+	 */
+	@Test
+	public void testValidateMapForContinents() throws Exception {
+		String l_Result="", l_ResultExpected = "";
+		String  l_Actual="", l_Expected="The countries inside asia are not internally Connected";
+		d_Map.addBorder("india", "kenya");
+		d_Map.addBorder("kenya", "egypt");
+		try {
+			l_Result = d_Map.validateMap();
+		} catch (Exception p_Exception) {
+			l_Actual = p_Exception.getMessage();
+		}
+		assertEquals(l_Expected,l_Actual);
+		assertEquals(l_ResultExpected,l_Result);
+	}
 	
 }
