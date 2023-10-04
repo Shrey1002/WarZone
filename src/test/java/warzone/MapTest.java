@@ -330,19 +330,18 @@ public class MapTest {
 		assertEquals(0,l_Flag);
 	}
 
-	// /**
-	//  * To test the Validation of Map and Check whether it is a connected graph or not 
-	//  * @throws Exception for Add borders and if continent is not a connected subgraph
-	//  */
-	// @Test
-	// public void testValidateMap() throws Exception {
-	// 	String l_Actual="", l_Expected="Map is Valid";
-	// 	d_Map.addBorder("india", "kenya");
-	// 	d_Map.addBorder("kenya", "egypt");
-	// 	d_Map.addBorder("india", "japan");
-	// 	l_Actual = d_Map.validateMap();
-	// 	assertEquals(l_Expected,l_Actual);
-	// }
+	/**
+	 * To test the Validation of Map and Check whether it is a connected graph or not 
+	 * @throws Exception for Add borders and if continent is not a connected subgraph
+	 */
+	@Test
+	public void testValidateMap() throws Exception {
+		String l_Actual="", l_Expected="Map is Valid";
+		d_Map.addBorder("india", "kenya");
+		d_Map.addBorder("kenya", "india");
+		l_Actual = d_Map.validateMap();
+		assertEquals(l_Expected,l_Actual);
+	}
 
 
 	// /**
