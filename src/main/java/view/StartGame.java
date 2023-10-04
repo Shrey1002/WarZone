@@ -7,7 +7,7 @@ import model.GameModelNew;
  * @author Abhishek Mavani
  * @version 1.0.1
  * @since 09/18/2023
- * @description Driver class for the game. It consist a single method main which
+ * Driver class for the game. It consist a single method main which
  *              is an entry point to the game.
  */
 public class StartGame {
