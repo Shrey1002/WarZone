@@ -46,7 +46,7 @@ public class GameModelNew {
 
     
     /** 
-     * @param p_Map
+     * @param p_Map The map to be set for the game model.
      */
     public void setMap(Map p_Map) {
         this.d_Map = p_Map;
